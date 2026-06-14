@@ -77,6 +77,18 @@ export default function App() {
         .join('\n'),
       ceilingEmpower: ceiling.empower,
 
+      // שדה מוכן ומעוצב (HTML) עם כל התוכן האישי - להדבקה במייל ברב מסר
+      // בשדה מותאם אחד בלבד, במקום למפות 6 שדות נפרדים.
+      resultHtml: [
+        `<p>גילית שצוואר הבקבוק המרכזי שלך הוא <strong>${ceiling.title}</strong>.</p>`,
+        `<p>${ceiling.intro}</p>`,
+        `<p><strong>❗ הטעות שאת כנראה עושה כרגע:</strong><br>${ceiling.mistake}</p>`,
+        `<p><strong>✅ 3 הצעדים הראשונים שלך:</strong><br>` +
+          ceiling.actions.map((a, i) => `${i + 1}. ${a}`).join('<br>') +
+          `</p>`,
+        `<p><em>💛 ${ceiling.empower}</em></p>`,
+      ].join('\n'),
+
       // נתונים גולמיים וחותמת זמן
       rawScores: scores,
       timestamp: new Date().toISOString(),
