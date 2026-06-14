@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+
+/* ===== פונט המותג הדקורטיבי (Rinat Zigdon) ===== */
+@font-face {
+  font-family: 'Zigdon';
+  src:
+    url('/fonts/OHRinatZigdon-Regular.woff2') format('woff2'),
+    url('/fonts/OHRinatZigdon-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== גופנים וצבעי מותג ===== */
+:root {
+  --navy: #001c46;
+  --navy-soft: #00255c;
+  --gold: #d4af37;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Heebo', sans-serif;
+  background-color: var(--navy);
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* רקע פרימיום עם גרדיאנט עדין */
+.premium-bg {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+}
+
+/* פונט ההדגשה הדקורטיבי של המותג (כותרות, מילות מפתח זהובות) */
+.font-brand {
+  font-family: 'Zigdon', 'Heebo', serif;
+}
+
+/* בחירת טקסט בצבעי המותג */
+::selection {
+  background-color: var(--gold);
+  color: var(--navy);
+}
+
+/* ===== מיקרו-אינטראקציה: כניסה עדינה ===== */
+.fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
