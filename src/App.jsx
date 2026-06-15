@@ -77,17 +77,29 @@ export default function App() {
         .join('\n'),
       ceilingEmpower: ceiling.empower,
 
-      // שדה מוכן ומעוצב (HTML) עם כל התוכן האישי - להדבקה במייל ברב מסר
-      // בשדה מותאם אחד בלבד, במקום למפות 6 שדות נפרדים.
-      resultHtml: [
-        `<p>גילית שצוואר הבקבוק המרכזי שלך הוא <strong>${ceiling.title}</strong>.</p>`,
-        `<p>${ceiling.intro}</p>`,
-        `<p><strong>❗ הטעות שאת כנראה עושה כרגע:</strong><br>${ceiling.mistake}</p>`,
-        `<p><strong>✅ 3 הצעדים הראשונים שלך:</strong><br>` +
-          ceiling.actions.map((a, i) => `${i + 1}. ${a}`).join('<br>') +
-          `</p>`,
-        `<p><em>💛 ${ceiling.empower}</em></p>`,
-      ].join('\n'),
+      // כרטיס תוצאות מעוצב (HTML עם inline styles) - בולט וברור כתוצאת האבחון
+      // האישית. נשתל במייל ברב מסר דרך השדה המותאם [[תוצאה]].
+      resultHtml:
+        `<div dir="rtl" style="border:2px solid #D4AF37;border-radius:14px;padding:22px;background-color:#faf8f2;margin:18px 0;font-family:Arial,Helvetica,sans-serif;max-width:560px;">` +
+        `<div style="text-align:center;border-bottom:2px solid #D4AF37;padding-bottom:14px;margin-bottom:18px;">` +
+        `<div style="font-size:12px;letter-spacing:2px;color:#b8941f;font-weight:bold;text-transform:uppercase;">תוצאות האבחון האישי שלך</div>` +
+        `<div style="font-size:26px;color:#001C46;font-weight:bold;margin-top:8px;">${ceiling.title}</div>` +
+        `</div>` +
+        `<p style="color:#333333;font-size:15px;line-height:1.7;margin:0 0 18px;">${ceiling.intro}</p>` +
+        `<div style="background-color:#ffffff;border-right:4px solid #e05252;padding:14px 16px;border-radius:8px;margin-bottom:18px;">` +
+        `<div style="font-weight:bold;color:#c0392b;font-size:14px;margin-bottom:6px;">❗ הטעות שאת עושה כרגע:</div>` +
+        `<div style="color:#333333;font-size:14px;line-height:1.6;">${ceiling.mistake}</div>` +
+        `</div>` +
+        `<div style="margin-bottom:18px;">` +
+        `<div style="font-weight:bold;color:#001C46;font-size:16px;margin-bottom:10px;">✅ 3 הצעדים הראשונים שלך:</div>` +
+        `<div style="color:#333333;font-size:14px;line-height:2;">` +
+        ceiling.actions
+          .map((a, i) => `<strong style="color:#b8941f;">${i + 1}.</strong> ${a}`)
+          .join('<br>') +
+        `</div>` +
+        `</div>` +
+        `<div style="background-color:#001C46;color:#ffffff;padding:16px;border-radius:10px;text-align:center;font-style:italic;font-size:14px;line-height:1.6;">💛 ${ceiling.empower}</div>` +
+        `</div>`,
 
       // נתונים גולמיים וחותמת זמן
       rawScores: scores,
