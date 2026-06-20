@@ -2,9 +2,14 @@
  * מעטפת העיצוב הראשית: רקע פרימיום, קווים דקורטיביים, header עם הלוגו,
  * חלון התוכן המרכזי (app-window) ו-footer.
  */
+import Sparkles from './Sparkles'
+
 export default function Layout({ children }) {
   return (
     <div className="premium-bg min-h-screen flex flex-col justify-between overflow-x-hidden relative">
+      {/* ניצוצות זהב מרצדים ברקע */}
+      <Sparkles />
+
       {/* קווים דקורטיביים עדינים ברקע */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-10 z-0">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">

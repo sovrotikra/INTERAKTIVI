@@ -64,3 +64,41 @@ body {
     transform: translateY(0);
   }
 }
+
+/* ===== ניצוצות זהב מרצדים ברקע ===== */
+.sparkle {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #ffe9a8 0%,
+    var(--gold) 45%,
+    rgba(212, 175, 55, 0) 70%
+  );
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.7);
+  opacity: 0;
+  animation-name: twinkle;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  will-change: opacity, transform;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
+
+/* כיבוד העדפת תנועה מופחתת */
+@media (prefers-reduced-motion: reduce) {
+  .sparkle {
+    animation: none;
+    opacity: 0.5;
+  }
+}
