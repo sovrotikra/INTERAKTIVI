@@ -5,7 +5,7 @@ import { useMemo } from 'react'
  * pointer-events-none כדי לא להפריע לאינטראקציה, ומיקום fixed כדי לכסות את כל המסך.
  * הניצוצות נוצרים פעם אחת (useMemo) עם מיקום, גודל, וקצב הבהוב אקראיים.
  */
-const SPARKLE_COUNT = 26
+const SPARKLE_COUNT = 50
 
 export default function Sparkles() {
   const sparkles = useMemo(
@@ -14,9 +14,9 @@ export default function Sparkles() {
         id: i,
         top: Math.random() * 100, // אחוז מגובה המסך
         left: Math.random() * 100, // אחוז מרוחב המסך
-        size: 2 + Math.random() * 4, // 2px - 6px
-        delay: Math.random() * 6, // השהיה לפני תחילת ההבהוב
-        duration: 3 + Math.random() * 4, // 3s - 7s למחזור הבהוב
+        size: 3 + Math.random() * 6, // 3px - 9px
+        delay: Math.random() * 5, // השהיה לפני תחילת ההבהוב
+        duration: 2.5 + Math.random() * 3, // 2.5s - 5.5s למחזור הבהוב
       })),
     [],
   )

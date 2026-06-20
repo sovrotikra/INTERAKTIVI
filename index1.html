@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<script id="ed-sentinel">
+(function(){window.__edMut=new WeakSet();window.__edMutLate=new WeakSet();window.__edSelf=false;window.__edLoadDone=false;
+function isEdNode(n){if(n.nodeType!==1)return false;var id=n.id||"",cl=(typeof n.className==="string"?n.className:"");return id.indexOf("ed-")===0||id.indexOf("pe-")===0||/(^| )pe-(del|handle)( |$)/.test(cl);}
+function onlyEdNodes(rec){var ls=[rec.addedNodes,rec.removedNodes],saw=false;for(var j=0;j<2;j++)for(var k=0;k<ls[j].length;k++){var n=ls[j][k];if(n.nodeType===3)return false;if(!isEdNode(n))return false;saw=true;}return saw;}
+try{window.__edObs=new MutationObserver(function(list){if(window.__edSelf)return;for(var i=0;i<list.length;i++){var t=list[i].target;if(t.nodeType===3)t=t.parentElement;if(!t||isEdNode(t))continue;if(t.isContentEditable)continue;if(t.closest&&t.closest('[id^="ed-"],[id^="pe-"]'))continue;if(list[i].type==="childList"&&onlyEdNodes(list[i]))continue;window.__edMut.add(t);if(window.__edLoadDone)window.__edMutLate.add(t);}});
+window.__edObs.observe(document.documentElement,{childList:true,characterData:true,subtree:true});
+window.addEventListener("load",function(){setTimeout(function(){window.__edLoadDone=true;},600);});}catch(e){}})();
+</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>שאלון חוזקות | שוברות תקרה</title>
+  <meta name="description" content="שאלון חוזקות אופי דיגיטלי: גלי את חמש החוזקות המובילות שלך. שוברות תקרה, לאה גרוס." />
+  <link rel="icon" href="assets/plane.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700&family=Heebo:wght@500;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- כותרת עליונה ממותגת -->
+  <header class="site-header">
+    <img src="assets/logo.png" alt="שוברות תקרה · לאה גרוס" class="brand-logo" />
+  </header>
+
+  <main class="container">
+
+    <!-- מסך פתיחה -->
+    <section id="screen-intro" class="screen">
+      <div id="particles-bg" aria-hidden="true"></div>
+      <div class="intro-content">
+        <img src="assets/plane.png" alt="" class="intro-plane" aria-hidden="true" />
+        <h1 class="intro-title">שאלון החוזקות שלך</h1>
+        <p class="intro-sub">לכל אחת מאיתנו יש צירוף חוזקות אופי משלה. כאן תגלי את <strong>חמש החוזקות המובילות</strong> שלך.
+          אלו שמרגישות לך הכי טבעיות, ושמהן את שואבת אנרגיה.</p>
+        <ul class="intro-points">
+          <li>48 משפטים קצרים</li>
+          <li>5–7 דקות מילוי</li>
+          <li>תוצאות מיידיות + אפשרות שמירה כ-PDF</li>
+        </ul>
+        <p class="intro-note">זה לא מבחן ואין תשובות נכונות. קראי כל משפט וסמני מהבטן, לפי מה שעולה לך ראשון. ככה התוצאה יוצאת הכי מדויקת, והכי <em>את</em>. 💛</p>
+        <button id="btn-start" class="btn btn-primary">בואי נתחיל&nbsp;✈️</button>
+      </div>
+    </section>
+
+    <!-- מסך השאלון -->
+    <section id="screen-quiz" class="screen hidden">
+      <div class="progress-wrap">
+        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+        <span id="progress-text" class="progress-text">0 / 48</span>
+      </div>
+      <form id="quiz-form" novalidate>
+        <div id="questions-list"></div>
+        <p id="quiz-error" class="quiz-error hidden">יש עדיין משפטים שלא סומנו. אנא השלימי אותם כדי לקבל את התוצאות.</p>
+        <div class="quiz-actions">
+          <button type="submit" id="btn-submit" class="btn btn-primary">חשבי את החוזקות שלי</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- מסך תוצאות -->
+    <section id="screen-results" class="screen hidden">
+      <div class="results-head">
+        <img src="assets/plane.png" alt="" class="results-plane" aria-hidden="true" />
+        <h2 class="results-title">5 החוזקות המובילות שלך</h2>
+        <p class="results-sub">אלו חוזקות האופי הבולטות שלך לפי השאלון. כשתשתמשי בהן במודע, בעבודה ובקשרים, הן יהפכו ליתרון אמיתי.</p>
+      </div>
+      <ol id="results-list" class="results-list"></ol>
+
+      <div class="develop-head">
+        <h3 class="develop-title">3 חוזקות לפיתוח</h3>
+        <p class="develop-sub">אלו החוזקות שפחות טבעיות לך כרגע. לא חובה להצטיין בכולן: בעסק את יכולה לפתח אותן בהדרגה, או פשוט להשלים אותן דרך שותפה, צוות או מיקור חוץ, ולהשקיע את האנרגיה במה שאת הכי טובה בו.</p>
+      </div>
+      <ol id="develop-list" class="develop-list"></ol>
+
+      <div class="email-capture">
+        <h3 class="email-title">📩 רוצה לקבל את זה למייל?</h3>
+        <p class="email-sub">נשלח לך את 5 החוזקות שלך, הטיפים להטמיע אותן בעסק, וגם 3 החוזקות לפיתוח. שמרי את זה אצלך לחזור אליו.</p>
+        <form id="email-form" class="email-form" novalidate>
+          <input type="email" id="email-input" class="email-input" placeholder="כתובת המייל שלך" autocomplete="email" required />
+          <button type="submit" id="email-btn" class="btn btn-primary">שלחי לי למייל</button>
+        </form>
+        <p id="email-status" class="email-status" role="status"></p>
+        <p class="email-note">🔒 פרטי לחלוטין: התוצאות נשלחות רק אלייך, בלי עותק לאף אחד ובלי רשימת תפוצה.</p>
+      </div>
+
+      <div class="results-actions">
+        <button id="btn-print" class="btn btn-primary">🖨️ הדפסה / שמירה כ-PDF</button>
+        <button id="btn-restart" class="btn btn-ghost">למילוי מחדש</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- פוטר ממותג + רשתות -->
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <strong>שוברות תקרה</strong>
+      <span>אסטרטגיות עסקיות מנצחות · לאה גרוס</span>
+    </div>
+    <nav class="social" aria-label="רשתות חברתיות">
+      <a id="link-instagram" class="social-link" target="_blank" rel="noopener" aria-label="אינסטגרם">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.7.1-.9 0-1.4.2-1.7.3-.4.2-.7.4-1 .7-.3.3-.5.6-.7 1-.1.3-.3.8-.3 1.7-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c0 .9.2 1.4.3 1.7.2.4.4.7.7 1 .3.3.6.5 1 .7.3.1.8.3 1.7.3 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c.9 0 1.4-.2 1.7-.3.4-.2.7-.4 1-.7.3-.3.5-.6.7-1 .1-.3.3-.8.3-1.7.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c0-.9-.2-1.4-.3-1.7-.2-.4-.4-.7-.7-1-.3-.3-.6-.5-1-.7-.3-.1-.8-.3-1.7-.3-1.2-.1-1.6-.1-4.7-.1Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Zm6.3-8.3a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/></svg>
+      </a>
+      <a id="link-facebook" class="social-link" target="_blank" rel="noopener" aria-label="פייסבוק">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.9h2.54V9.85c0-2.5 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.9h-2.34V22c4.78-.79 8.43-4.94 8.43-9.94Z"/></svg>
+      </a>
+      <a id="link-whatsapp" class="social-link" target="_blank" rel="noopener" aria-label="וואטסאפ">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.48 1.34 5L2 22l5.16-1.35a9.9 9.9 0 0 0 4.88 1.28h.01c5.5 0 9.96-4.46 9.96-9.96 0-2.66-1.04-5.16-2.92-7.04A9.9 9.9 0 0 0 12.04 2Zm0 1.82c2.18 0 4.23.85 5.77 2.39a8.1 8.1 0 0 1 2.39 5.77c0 4.5-3.66 8.15-8.16 8.15a8.1 8.1 0 0 1-4.14-1.13l-.3-.18-3.06.8.82-2.98-.2-.31a8.1 8.1 0 0 1-1.25-4.35c0-4.5 3.66-8.15 8.16-8.15Zm-2.7 4.38c-.16 0-.43.06-.65.31-.22.24-.86.84-.86 2.05 0 1.2.88 2.37 1 2.53.12.16 1.7 2.6 4.13 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.56.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28-.24-.12-1.43-.71-1.65-.79-.22-.08-.38-.12-.54.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.31-.74-1.79-.2-.47-.4-.4-.54-.41-.14-.01-.3-.01-.46-.01Z"/></svg>
+      </a>
+    </nav>
+    <p class="footer-copy">שאלון חוזקות אופי מבוסס VIA · נבנה באהבה לקהילת שוברות תקרה</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+<script type="text/plain" id="ed-pristine">PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImhlIiBkaXI9InJ0bCI+CjxoZWFkPgogIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogIDxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MS4wIiAvPgogIDx0aXRsZT7XqdeQ15zXldefINeX15XXlten15XXqiB8INep15XXkdeo15XXqiDXqten16jXlDwvdGl0bGU+CiAgPG1ldGEgbmFtZT0iZGVzY3JpcHRpb24iIGNvbnRlbnQ9Itep15DXnNeV158g15fXldeW16fXldeqINeQ15XXpNeZINeT15nXkteZ15jXnNeZOiDXktec15kg15DXqiDXl9ee16kg15TXl9eV15bXp9eV16og15TXnteV15HXmdec15XXqiDXqdec15ouINep15XXkdeo15XXqiDXqten16jXlCwg15zXkNeUINeS16jXldehLiIgLz4KICA8bGluayByZWw9Imljb24iIGhyZWY9ImFzc2V0cy9wbGFuZS5wbmciIC8+CiAgPGxpbmsgcmVsPSJwcmVjb25uZWN0IiBocmVmPSJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tIiAvPgogIDxsaW5rIHJlbD0icHJlY29ubmVjdCIgaHJlZj0iaHR0cHM6Ly9mb250cy5nc3RhdGljLmNvbSIgY3Jvc3NvcmlnaW4gLz4KICA8bGluayBocmVmPSJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2NzczI/ZmFtaWx5PUFzc2lzdGFudDp3Z2h0QDQwMDs1MDA7NjAwOzcwMCZmYW1pbHk9SGVlYm86d2dodEA1MDA7NzAwOzgwMDs5MDAmZGlzcGxheT1zd2FwIiByZWw9InN0eWxlc2hlZXQiIC8+CiAgPGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJzdHlsZXMuY3NzIiAvPgo8L2hlYWQ+Cjxib2R5PgoKICA8IS0tINeb15XXqteo16og16LXnNeZ15XXoNeUINee157Xldeq15LXqiAtLT4KICA8aGVhZGVyIGNsYXNzPSJzaXRlLWhlYWRlciI+CiAgICA8aW1nIHNyYz0iYXNzZXRzL2xvZ28ucG5nIiBhbHQ9Itep15XXkdeo15XXqiDXqten16jXlCDCtyDXnNeQ15Qg15LXqNeV16EiIGNsYXNzPSJicmFuZC1sb2dvIiAvPgogIDwvaGVhZGVyPgoKICA8bWFpbiBjbGFzcz0iY29udGFpbmVyIj4KCiAgICA8IS0tINee16HXmiDXpNeq15nXl9eUIC0tPgogICAgPHNlY3Rpb24gaWQ9InNjcmVlbi1pbnRybyIgY2xhc3M9InNjcmVlbiI+CiAgICAgIDxkaXYgaWQ9InBhcnRpY2xlcy1iZyIgYXJpYS1oaWRkZW49InRydWUiPjwvZGl2PgogICAgICA8ZGl2IGNsYXNzPSJpbnRyby1jb250ZW50Ij4KICAgICAgICA8aW1nIHNyYz0iYXNzZXRzL3BsYW5lLnBuZyIgYWx0PSIiIGNsYXNzPSJpbnRyby1wbGFuZSIgYXJpYS1oaWRkZW49InRydWUiIC8+CiAgICAgICAgPGgxIGNsYXNzPSJpbnRyby10aXRsZSI+16nXkNec15XXnyDXlNeX15XXlten15XXqiDXqdec15o8L2gxPgogICAgICAgIDxwIGNsYXNzPSJpbnRyby1zdWIiPtec15vXnCDXkNeX16og157XkNeZ16rXoNeVINeZ16kg16bXmdeo15XXoyDXl9eV15bXp9eV16og15DXldek15kg157Xqdec15QuINeb15DXnyDXqteS15zXmSDXkNeqIDxzdHJvbmc+15fXntepINeU15fXldeW16fXldeqINeU157XldeR15nXnNeV16o8L3N0cm9uZz4g16nXnNeaLgogICAgICAgICAg15DXnNeVINep157XqNeS15nXqdeV16og15zXmiDXlNeb15kg15jXkdei15nXldeqLCDXldep157XlNefINeQ16og16nXldeQ15HXqiDXkNeg16jXkteZ15QuPC9wPgogICAgICAgIDx1bCBjbGFzcz0iaW50cm8tcG9pbnRzIj4KICAgICAgICAgIDxsaT40OCDXntep16TXmNeZ150g16fXpteo15nXnTwvbGk+CiAgICAgICAgICA8bGk+NeKAkzcg15PXp9eV16og157Xmdec15XXmTwvbGk+CiAgICAgICAgICA8bGk+16rXldem15DXldeqINee15nXmdeT15nXldeqICsg15DXpNep16jXldeqINep157Xmdeo15Qg15stUERGPC9saT4KICAgICAgICA8L3VsPgogICAgICAgIDxwIGNsYXNzPSJpbnRyby1ub3RlIj7XlteUINec15Ag157XkdeX158g15XXkNeZ158g16rXqdeV15HXldeqINeg15vXldeg15XXqi4g16fXqNeQ15kg15vXnCDXntep16TXmCDXldeh157XoNeZINee15TXkdeY158sINec16TXmSDXnteUINep16LXldec15Qg15zXmiDXqNeQ16nXldefLiDXm9eb15Qg15TXqteV16bXkNeUINeZ15XXpteQ16og15TXm9eZINee15PXldeZ16fXqiwg15XXlNeb15kgPGVtPteQ16o8L2VtPi4g8J+SmzwvcD4KICAgICAgICA8YnV0dG9uIGlkPSJidG4tc3RhcnQiIGNsYXNzPSJidG4gYnRuLXByaW1hcnkiPteR15XXkNeZINeg16rXl9eZ15wmbmJzcDvinIjvuI88L2J1dHRvbj4KICAgICAgPC9kaXY+CiAgICA8L3NlY3Rpb24+CgogICAgPCEtLSDXnteh15og15TXqdeQ15zXldefIC0tPgogICAgPHNlY3Rpb24gaWQ9InNjcmVlbi1xdWl6IiBjbGFzcz0ic2NyZWVuIGhpZGRlbiI+CiAgICAgIDxkaXYgY2xhc3M9InByb2dyZXNzLXdyYXAiPgogICAgICAgIDxkaXYgY2xhc3M9InByb2dyZXNzLWJhciI+PGRpdiBpZD0icHJvZ3Jlc3MtZmlsbCIgY2xhc3M9InByb2dyZXNzLWZpbGwiPjwvZGl2PjwvZGl2PgogICAgICAgIDxzcGFuIGlkPSJwcm9ncmVzcy10ZXh0IiBjbGFzcz0icHJvZ3Jlc3MtdGV4dCI+MCAvIDQ4PC9zcGFuPgogICAgICA8L2Rpdj4KICAgICAgPGZvcm0gaWQ9InF1aXotZm9ybSIgbm92YWxpZGF0ZT4KICAgICAgICA8ZGl2IGlkPSJxdWVzdGlvbnMtbGlzdCI+PC9kaXY+CiAgICAgICAgPHAgaWQ9InF1aXotZXJyb3IiIGNsYXNzPSJxdWl6LWVycm9yIGhpZGRlbiI+15nXqSDXoteT15nXmdefINee16nXpNeY15nXnSDXqdec15Ag16HXldee16DXlS4g15DXoNeQINeU16nXnNeZ157XmSDXkNeV16rXnSDXm9eT15kg15zXp9eR15wg15DXqiDXlNeq15XXpteQ15XXqi48L3A+CiAgICAgICAgPGRpdiBjbGFzcz0icXVpei1hY3Rpb25zIj4KICAgICAgICAgIDxidXR0b24gdHlwZT0ic3VibWl0IiBpZD0iYnRuLXN1Ym1pdCIgY2xhc3M9ImJ0biBidG4tcHJpbWFyeSI+15fXqdeR15kg15DXqiDXlNeX15XXlten15XXqiDXqdec15k8L2J1dHRvbj4KICAgICAgICA8L2Rpdj4KICAgICAgPC9mb3JtPgogICAgPC9zZWN0aW9uPgoKICAgIDwhLS0g157XodeaINeq15XXpteQ15XXqiAtLT4KICAgIDxzZWN0aW9uIGlkPSJzY3JlZW4tcmVzdWx0cyIgY2xhc3M9InNjcmVlbiBoaWRkZW4iPgogICAgICA8ZGl2IGNsYXNzPSJyZXN1bHRzLWhlYWQiPgogICAgICAgIDxpbWcgc3JjPSJhc3NldHMvcGxhbmUucG5nIiBhbHQ9IiIgY2xhc3M9InJlc3VsdHMtcGxhbmUiIGFyaWEtaGlkZGVuPSJ0cnVlIiAvPgogICAgICAgIDxoMiBjbGFzcz0icmVzdWx0cy10aXRsZSI+NSDXlNeX15XXlten15XXqiDXlNee15XXkdeZ15zXldeqINep15zXmjwvaDI+CiAgICAgICAgPHAgY2xhc3M9InJlc3VsdHMtc3ViIj7XkNec15Ug15fXldeW16fXldeqINeU15DXldek15kg15TXkdeV15zXmNeV16og16nXnNeaINec16TXmSDXlNep15DXnNeV158uINeb16nXqtep16rXntep15kg15HXlNefINeR157XldeT16IsINeR16LXkdeV15PXlCDXldeR16fXqdeo15nXnSwg15TXnyDXmdeU16TXm9eVINec15nXqteo15XXnyDXkNee15nXqteZLjwvcD4KICAgICAgPC9kaXY+CiAgICAgIDxvbCBpZD0icmVzdWx0cy1saXN0IiBjbGFzcz0icmVzdWx0cy1saXN0Ij48L29sPgoKICAgICAgPGRpdiBjbGFzcz0iZGV2ZWxvcC1oZWFkIj4KICAgICAgICA8aDMgY2xhc3M9ImRldmVsb3AtdGl0bGUiPjMg15fXldeW16fXldeqINec16TXmdeq15XXlzwvaDM+CiAgICAgICAgPHAgY2xhc3M9ImRldmVsb3Atc3ViIj7XkNec15Ug15TXl9eV15bXp9eV16og16nXpNeX15XXqiDXmNeR16LXmdeV16og15zXmiDXm9eo15LXoi4g15zXkCDXl9eV15HXlCDXnNeU16bXmNeZ15nXnyDXkdeb15XXnNefOiDXkdei16HXpyDXkNeqINeZ15vXldec15Qg15zXpNeq15cg15DXldeq158g15HXlNeT16jXkteULCDXkNeVINek16nXldeYINec15TXqdec15nXnSDXkNeV16rXnyDXk9eo15og16nXldeq16TXlCwg16bXldeV16og15DXlSDXnteZ16fXldeoINeX15XXpSwg15XXnNeU16nXp9eZ16Ig15DXqiDXlNeQ16DXqNeS15nXlCDXkdee15Qg16nXkNeqINeU15vXmSDXmNeV15HXlCDXkdeVLjwvcD4KICAgICAgPC9kaXY+CiAgICAgIDxvbCBpZD0iZGV2ZWxvcC1saXN0IiBjbGFzcz0iZGV2ZWxvcC1saXN0Ij48L29sPgoKICAgICAgPGRpdiBjbGFzcz0iZW1haWwtY2FwdHVyZSI+CiAgICAgICAgPGgzIGNsYXNzPSJlbWFpbC10aXRsZSI+8J+TqSDXqNeV16bXlCDXnNen15HXnCDXkNeqINeW15Qg15zXnteZ15nXnD88L2gzPgogICAgICAgIDxwIGNsYXNzPSJlbWFpbC1zdWIiPteg16nXnNeXINec15og15DXqiA1INeU15fXldeW16fXldeqINep15zXmiwg15TXmNeZ16TXmdedINec15TXmNee15nXoiDXkNeV16rXnyDXkdei16HXpywg15XXktedIDMg15TXl9eV15bXp9eV16og15zXpNeZ16rXldeXLiDXqdee16jXmSDXkNeqINeW15Qg15DXptec15og15zXl9eW15XXqCDXkNec15nXlS48L3A+CiAgICAgICAgPGZvcm0gaWQ9ImVtYWlsLWZvcm0iIGNsYXNzPSJlbWFpbC1mb3JtIiBub3ZhbGlkYXRlPgogICAgICAgICAgPGlucHV0IHR5cGU9ImVtYWlsIiBpZD0iZW1haWwtaW5wdXQiIGNsYXNzPSJlbWFpbC1pbnB1dCIgcGxhY2Vob2xkZXI9Iteb16rXldeR16og15TXnteZ15nXnCDXqdec15oiIGF1dG9jb21wbGV0ZT0iZW1haWwiIHJlcXVpcmVkIC8+CiAgICAgICAgICA8YnV0dG9uIHR5cGU9InN1Ym1pdCIgaWQ9ImVtYWlsLWJ0biIgY2xhc3M9ImJ0biBidG4tcHJpbWFyeSI+16nXnNeX15kg15zXmSDXnNee15nXmdecPC9idXR0b24+CiAgICAgICAgPC9mb3JtPgogICAgICAgIDxwIGlkPSJlbWFpbC1zdGF0dXMiIGNsYXNzPSJlbWFpbC1zdGF0dXMiIHJvbGU9InN0YXR1cyI+PC9wPgogICAgICAgIDxwIGNsYXNzPSJlbWFpbC1ub3RlIj7wn5SSINek16jXmNeZINec15fXnNeV15jXmdefOiDXlNeq15XXpteQ15XXqiDXoNep15zXl9eV16og16jXpyDXkNec15nXmdeaLCDXkdec15kg16LXldeq16cg15zXkNejINeQ15fXkyDXldeR15zXmSDXqNep15nXnteqINeq16TXldem15QuPC9wPgogICAgICA8L2Rpdj4KCiAgICAgIDxkaXYgY2xhc3M9InJlc3VsdHMtYWN0aW9ucyI+CiAgICAgICAgPGJ1dHRvbiBpZD0iYnRuLXByaW50IiBjbGFzcz0iYnRuIGJ0bi1wcmltYXJ5Ij7wn5ao77iPINeU15PXpNeh15QgLyDXqdee15nXqNeUINebLVBERjwvYnV0dG9uPgogICAgICAgIDxidXR0b24gaWQ9ImJ0bi1yZXN0YXJ0IiBjbGFzcz0iYnRuIGJ0bi1naG9zdCI+15zXnteZ15zXldeZINee15fXk9epPC9idXR0b24+CiAgICAgIDwvZGl2PgogICAgPC9zZWN0aW9uPgoKICA8L21haW4+CgogIDwhLS0g16TXldeY16gg157XnteV16rXkiArINeo16nXqteV16ogLS0+CiAgPGZvb3RlciBjbGFzcz0ic2l0ZS1mb290ZXIiPgogICAgPGRpdiBjbGFzcz0iZm9vdGVyLWJyYW5kIj4KICAgICAgPHN0cm9uZz7XqdeV15HXqNeV16og16rXp9eo15Q8L3N0cm9uZz4KICAgICAgPHNwYW4+15DXodeY16jXmNeS15nXldeqINei16HXp9eZ15XXqiDXnteg16bXl9eV16ogwrcg15zXkNeUINeS16jXldehPC9zcGFuPgogICAgPC9kaXY+CiAgICA8bmF2IGNsYXNzPSJzb2NpYWwiIGFyaWEtbGFiZWw9Iteo16nXqteV16og15fXkdeo16rXmdeV16oiPgogICAgICA8YSBpZD0ibGluay1pbnN0YWdyYW0iIGNsYXNzPSJzb2NpYWwtbGluayIgdGFyZ2V0PSJfYmxhbmsiIHJlbD0ibm9vcGVuZXIiIGFyaWEtbGFiZWw9IteQ15nXoNeh15jXkteo150iPgogICAgICAgIDxzdmcgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMjIiIGhlaWdodD0iMjIiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cGF0aCBmaWxsPSJjdXJyZW50Q29sb3IiIGQ9Ik0xMiAyLjJjMy4yIDAgMy42IDAgNC45LjEgMS4yLjEgMS44LjMgMi4yLjQuNi4yIDEgLjUgMS40LjkuNC40LjcuOC45IDEuNC4yLjQuNCAxIC40IDIuMi4xIDEuMy4xIDEuNy4xIDQuOXMwIDMuNi0uMSA0LjljLS4xIDEuMi0uMyAxLjgtLjQgMi4yLS4yLjYtLjUgMS0uOSAxLjQtLjQuNC0uOC43LTEuNC45LS40LjItMSAuNC0yLjIuNC0xLjMuMS0xLjcuMS00LjkuMXMtMy42IDAtNC45LS4xYy0xLjItLjEtMS44LS4zLTIuMi0uNC0uNi0uMi0xLS41LTEuNC0uOS0uNC0uNC0uNy0uOC0uOS0xLjQtLjItLjQtLjQtMS0uNC0yLjJDMi4yIDE1LjYgMi4yIDE1LjIgMi4yIDEyczAtMy42LjEtNC45Yy4xLTEuMi4zLTEuOC40LTIuMi4yLS42LjUtMSAuOS0xLjQuNC0uNC44LS43IDEuNC0uOS40LS4yIDEtLjQgMi4yLS40QzguNCAyLjIgOC44IDIuMiAxMiAyLjJabTAgMS44Yy0zLjEgMC0zLjUgMC00LjcuMS0uOSAwLTEuNC4yLTEuNy4zLS40LjItLjcuNC0xIC43LS4zLjMtLjUuNi0uNyAxLS4xLjMtLjMuOC0uMyAxLjctLjEgMS4yLS4xIDEuNi0uMSA0LjdzMCAzLjUuMSA0LjdjMCAuOS4yIDEuNC4zIDEuNy4yLjQuNC43LjcgMSAuMy4zLjYuNSAxIC43LjMuMS44LjMgMS43LjMgMS4yLjEgMS42LjEgNC43LjFzMy41IDAgNC43LS4xYy45IDAgMS40LS4yIDEuNy0uMy40LS4yLjctLjQgMS0uNy4zLS4zLjUtLjYuNy0xIC4xLS4zLjMtLjguMy0xLjcuMS0xLjIuMS0xLjYuMS00LjdzMC0zLjUtLjEtNC43YzAtLjktLjItMS40LS4zLTEuNy0uMi0uNC0uNC0uNy0uNy0xLS4zLS4zLS42LS41LTEtLjctLjMtLjEtLjgtLjMtMS43LS4zLTEuMi0uMS0xLjYtLjEtNC43LS4xWm0wIDMuMWE0LjkgNC45IDAgMSAxIDAgOS44IDQuOSA0LjkgMCAwIDEgMC05LjhabTAgOC4xYTMuMiAzLjIgMCAxIDAgMC02LjQgMy4yIDMuMiAwIDAgMCAwIDYuNFptNi4zLTguM2ExLjE1IDEuMTUgMCAxIDEtMi4zIDAgMS4xNSAxLjE1IDAgMCAxIDIuMyAwWiIvPjwvc3ZnPgogICAgICA8L2E+CiAgICAgIDxhIGlkPSJsaW5rLWZhY2Vib29rIiBjbGFzcz0ic29jaWFsLWxpbmsiIHRhcmdldD0iX2JsYW5rIiByZWw9Im5vb3BlbmVyIiBhcmlhLWxhYmVsPSLXpNeZ15nXodeR15XXpyI+CiAgICAgICAgPHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyMiIgaGVpZ2h0PSIyMiIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTIyIDEyLjA2QzIyIDYuNSAxNy41MiAyIDEyIDJTMiA2LjUgMiAxMi4wNmMwIDUgMy42NiA5LjE1IDguNDQgOS45NHYtNy4wM0g3Ljl2LTIuOWgyLjU0VjkuODVjMC0yLjUgMS40OS0zLjg5IDMuNzgtMy44OSAxLjA5IDAgMi4yNC4yIDIuMjQuMnYyLjQ2aC0xLjI2Yy0xLjI0IDAtMS42My43Ny0xLjYzIDEuNTZ2MS44OGgyLjc4bC0uNDQgMi45aC0yLjM0VjIyYzQuNzgtLjc5IDguNDMtNC45NCA4LjQzLTkuOTRaIi8+PC9zdmc+CiAgICAgIDwvYT4KICAgICAgPGEgaWQ9Imxpbmstd2hhdHNhcHAiIGNsYXNzPSJzb2NpYWwtbGluayIgdGFyZ2V0PSJfYmxhbmsiIHJlbD0ibm9vcGVuZXIiIGFyaWEtbGFiZWw9IteV15XXkNeY16HXkNekIj4KICAgICAgICA8c3ZnIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjIyIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZmlsbD0iY3VycmVudENvbG9yIiBkPSJNMTIuMDQgMmMtNS41IDAtOS45NiA0LjQ2LTkuOTYgOS45NiAwIDEuNzYuNDYgMy40OCAxLjM0IDVMMiAyMmw1LjE2LTEuMzVhOS45IDkuOSAwIDAgMCA0Ljg4IDEuMjhoLjAxYzUuNSAwIDkuOTYtNC40NiA5Ljk2LTkuOTYgMC0yLjY2LTEuMDQtNS4xNi0yLjkyLTcuMDRBOS45IDkuOSAwIDAgMCAxMi4wNCAyWm0wIDEuODJjMi4xOCAwIDQuMjMuODUgNS43NyAyLjM5YTguMSA4LjEgMCAwIDEgMi4zOSA1Ljc3YzAgNC41LTMuNjYgOC4xNS04LjE2IDguMTVhOC4xIDguMSAwIDAgMS00LjE0LTEuMTNsLS4zLS4xOC0zLjA2LjguODItMi45OC0uMi0uMzFhOC4xIDguMSAwIDAgMS0xLjI1LTQuMzVjMC00LjUgMy42Ni04LjE1IDguMTYtOC4xNVptLTIuNyA0LjM4Yy0uMTYgMC0uNDMuMDYtLjY1LjMxLS4yMi4yNC0uODYuODQtLjg2IDIuMDUgMCAxLjIuODggMi4zNyAxIDIuNTMuMTIuMTYgMS43IDIuNiA0LjEzIDMuNjQuNTguMjUgMS4wMy40IDEuMzguNTEuNTguMTggMS4xMS4xNiAxLjUzLjEuNDctLjA3IDEuNDMtLjU4IDEuNjMtMS4xNS4yLS41Ni4yLTEuMDUuMTQtMS4xNS0uMDYtLjEtLjIyLS4xNi0uNDYtLjI4LS4yNC0uMTItMS40My0uNzEtMS42NS0uNzktLjIyLS4wOC0uMzgtLjEyLS41NC4xMi0uMTYuMjQtLjYyLjc5LS43Ni45NS0uMTQuMTYtLjI4LjE4LS41Mi4wNi0uMjQtLjEyLTEuMDItLjM4LTEuOTQtMS4yLS43Mi0uNjQtMS4yLTEuNDMtMS4zNC0xLjY3LS4xNC0uMjQtLjAyLS4zNy4xLS40OS4xMS0uMTEuMjQtLjI4LjM2LS40Mi4xMi0uMTQuMTYtLjI0LjI0LS40LjA4LS4xNi4wNC0uMy0uMDItLjQyLS4wNi0uMTItLjU0LTEuMzEtLjc0LTEuNzktLjItLjQ3LS40LS40LS41NC0uNDEtLjE0LS4wMS0uMy0uMDEtLjQ2LS4wMVoiLz48L3N2Zz4KICAgICAgPC9hPgogICAgPC9uYXY+CiAgICA8cCBjbGFzcz0iZm9vdGVyLWNvcHkiPtep15DXnNeV158g15fXldeW16fXldeqINeQ15XXpNeZINee15HXldeh16EgVklBIMK3INeg15HXoNeUINeR15DXlNeR15Qg15zXp9eU15nXnNeqINep15XXkdeo15XXqiDXqten16jXlDwvcD4KICA8L2Zvb3Rlcj4KCiAgPHNjcmlwdCBzcmM9Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vQGVtYWlsanMvYnJvd3NlckA0L2Rpc3QvZW1haWwubWluLmpzIj48L3NjcmlwdD4KICA8c2NyaXB0IHNyYz0iZGF0YS5qcyI+PC9zY3JpcHQ+CiAgPHNjcmlwdCBzcmM9ImFwcC5qcyI+PC9zY3JpcHQ+CjwvYm9keT4KPC9odG1sPgo=</script>
+<script type="application/json" id="ed-base">{"ops":[{"t":"ins","ref":"#screen-intro > div:nth-child(2) > ul:nth-child(4) > li:nth-child(1)","where":"after","html":"<p class=\"pe-text\" dir=\"auto\">טקסט חדש - לחצו פעמיים לעריכה</p>","id":"1-65099"},{"t":"rm","sel":"[data-pe-i=\"1-65099\"]","html":"<p class=\"pe-text\" dir=\"auto\" data-pe-i=\"1-65099\">טקסט חדש - לחצו פעמיים לעריכה</p>","parent":"#screen-intro > div:nth-child(2) > ul:nth-child(4)","index":1},{"t":"html","sel":"#screen-intro > div:nth-child(2) > p:nth-child(3)","html":"לכל אחת מאיתנו יש צירוף חוזקות אופי משלה. כאן תגלי את <strong>חמש החוזקות המובילות</strong> שלך.\n          אלו שמרגישות לך הכי טבעיות ושמהן את שואבת אנרגיה."},{"t":"html","sel":"#screen-intro > div:nth-child(2) > p:nth-child(5)","html":"זה לא מבחן ואין תשובות נכונות או לא נכונות.&nbsp;<div>קראי כל משפט וסמני לפי מה שעולה לך ראשון. ככה התוצאה יוצאת הכי מדויקת, והכי <em>את</em>. 💛</div>"},{"t":"html","sel":"#screen-intro > div:nth-child(2) > ul:nth-child(4) > li:nth-child(3)","html":"תוצאות מיידיות + אפשרות שליחה במייל"},{"t":"html","sel":"body > footer:nth-child(3) > p:nth-child(3)","html":"כל הזכויות שמורות שאלון חוזקות אופי מבוסס VIA · נבנה באהבה לקהילת שוברות תקרה"},{"t":"html","sel":"#screen-intro > div:nth-child(2) > p:nth-child(5)","html":"זה לא מבחן. אין תשובות נכונות או לא נכונות.&nbsp;<div>קראי כל משפט וסמני לפי מה שעולה לך ראשון. ככה התוצאה יוצאת הכי מדויקת, והכי <em>את</em>. 💛</div>"}]}</script>
+<script type="application/json" id="ed-config">{"sections":"main > section","deny":"#particles-bg,.hl-word,[id^=\"pe-\"],[class^=\"pe-\"]:not(.pe-text):not(.pe-img-block):not(.pe-hover):not(.pe-selected):not(.pe-locked-hover)","lock":"#questions-list, #results-list, #develop-list, #progress-fill, #progress-text, #email-status, #quiz-error"}</script>
+<script>
+
+/* ===== PAGE EDIT MODE v1 (additive, self-contained) =====
+   Canva-style edit layer for landing pages (flow layout, RTL/LTR, scrolling).
+   Architecture: patch-over-pristine. Every committed change is an invertible op
+   {t, sel, ...}. The live DOM is edited for WYSIWYG; export rebuilds the page
+   from the pristine stash + a single patch script that re-applies the ops AFTER
+   the page's own scripts (hydration/typewriter/count-up safe, with re-assertion
+   sweeps). Style ops become !important CSS rules - layout ops desktop-scoped so
+   mobile breakpoints stay intact; color ops apply everywhere. */
+(function(){
+  if(window.__pageEditInit) return; window.__pageEditInit=true;
+  var SELF_SRC = document.currentScript ? document.currentScript.textContent : '';
+
+  /* ---------- parts injected by inject_editor.py ---------- */
+  function readJSON(id, fb){ var el=document.getElementById(id); if(!el) return fb;
+    try{ return JSON.parse(el.textContent); }catch(e){ return fb; } }
+  var CFG = readJSON('ed-config', {});
+  CFG.sections = CFG.sections || 'body > section, body > header, body > footer, main > section, main > header';
+  /* the editor's own transient state classes (pe-hover/pe-selected) must not
+     poison the prefix-deny - on classless elements class becomes exactly "pe-hover" */
+  CFG.deny = (CFG.deny || '') + (CFG.deny ? ',' : '') + '.hl-word,[id^="pe-"],[class^="pe-"]:not(.pe-text):not(.pe-img-block):not(.pe-hover):not(.pe-selected):not(.pe-locked-hover)';
+  CFG.lock = CFG.lock || '';
+  var BASE = readJSON('ed-base', {ops:[]});
+  var stashEl = document.getElementById('ed-pristine');
+
+  var FILE = decodeURIComponent((location.pathname.split('/').pop()||'page')).replace(/\.html?$/i,'');
+  var LS_OPS = 'pageEdit:'+FILE, LS_RESET = 'pageEdit:reset:'+FILE;
+
+  var edOn=false, selected=null, editState=null, drag=null;
+  var ops=[], redoStack=[], persistTimer=null, lastNudge={el:null,t:0};
+  var clipInternal=null, insCounter=0, fileHandle=null;
+  var resetBase=false; try{ resetBase = localStorage.getItem(LS_RESET)==='1'; }catch(e){}
+  var baseOps = resetBase ? [] : (BASE.ops||[]);
+
+  function isPe(el){ return !!(el && el.closest && el.closest('[id^="pe-"],.pe-del,.pe-handle')); }
+  function matches(el,sel){ if(!el||!el.matches||!sel) return false; try{ return el.matches(sel); }catch(e){ return false; } }
+
+  /* mark our own DOM writes so the sentinel doesn't flag them as script-owned */
+  function selfWrite(fn){
+    window.__edSelf=true;
+    try{ return fn(); }
+    finally{ if(window.__edObs) try{ window.__edObs.takeRecords(); }catch(e){} window.__edSelf=false; }
+  }
+
+  /* ---------- selector engine (stable across reloads) ---------- */
+  function goodId(el){ return el.id && !/^(ed-|pe-)/.test(el.id) && document.querySelectorAll('#'+(window.CSS&&CSS.escape?CSS.escape(el.id):el.id)).length===1; }
+  function cssPath(el){
+    if(el.nodeType!==1) el=el.parentElement;
+    if(!el) return null;
+    if(goodId(el)) return '#'+CSS.escape(el.id);
+    var parts=[], cur=el;
+    while(cur && cur.nodeType===1 && cur!==document.documentElement){
+      if(goodId(cur)){ parts.unshift('#'+CSS.escape(cur.id)); return parts.join(' > '); }
+      var pi=cur.getAttribute && cur.getAttribute('data-pe-i');
+      if(pi){ parts.unshift('[data-pe-i="'+pi+'"]'); return parts.join(' > '); }
+      if(cur===document.body){ parts.unshift('body'); return parts.join(' > '); }
+      var p=cur.parentElement; if(!p) break;
+      var idx=1, sib=cur.previousElementSibling;
+      while(sib){ if(!isPe(sib) && sib.id!=='ed-sentinel') idx++; sib=sib.previousElementSibling; }
+      parts.unshift(cur.tagName.toLowerCase()+':nth-child('+idx+')');
+      cur=p;
+    }
+    parts.unshift('body');
+    return parts.join(' > ');
+  }
+  function resolve(sel){ try{ return document.querySelector(sel); }catch(e){ return null; } }
+
+  /* ---------- editor stylesheet (css ops render here) ---------- */
+  var styleEl=document.createElement('style'); styleEl.id='pe-style'; document.head.appendChild(styleEl);
+  var edRules={}; /* key sel+'|'+scope -> {prop:val} */
+  /* double the selector (#x#x / [a][a]) so editor rules out-specify the page's
+     own !important rules (e.g. mobile font-size:clamp() !important on headings) */
+  function bump(sel){ return sel.indexOf(' ')===-1 ? sel+sel : sel; }
+  function renderRules(){
+    var all='', desk='';
+    for(var k in edRules){
+      var i=k.lastIndexOf('|'), sel=k.slice(0,i), scope=k.slice(i+1), props=edRules[k], body='';
+      for(var p in props){ if(props[p]!=null) body+=p+':'+props[p]+' !important;'; }
+      if(!body) continue;
+      var rule=bump(sel)+'{'+body+'}';
+      if(scope==='desktop') desk+=rule; else all+=rule;
+    }
+    styleEl.textContent = all + (desk?('@media (min-width:769px){'+desk+'}'):'');
+  }
+  function cssGet(sel,scope,prop){ var r=edRules[sel+'|'+scope]; return r?(prop in r?r[prop]:null):null; }
+
+  /* ---------- ops engine ---------- */
+  function applyOp(op){
+    return selfWrite(function(){
+      var el;
+      switch(op.t){
+        case 'html':
+          el=resolve(op.sel); if(!el) return false;
+          if(op.prev===undefined) op.prev=el.innerHTML;
+          el.innerHTML=op.html; return true;
+        case 'attr':
+          el=resolve(op.sel); if(!el) return false;
+          if(op.prev===undefined) op.prev=el.hasAttribute(op.name)?el.getAttribute(op.name):null;
+          if(op.val==null) el.removeAttribute(op.name); else el.setAttribute(op.name,op.val);
+          return true;
+        case 'css':
+          var key=op.sel+'|'+(op.scope||'all');
+          if(op.prev===undefined){ op.prev={}; for(var p in op.props) op.prev[p]=cssGet(op.sel,op.scope||'all',p); }
+          edRules[key]=edRules[key]||{};
+          for(var q in op.props) edRules[key][q]=op.props[q];
+          renderRules(); return true;
+        case 'ins':
+          var ref=resolve(op.ref); if(!ref) return false;
+          var tmp=document.createElement('div'); tmp.innerHTML=op.html;
+          var node=tmp.firstElementChild; if(!node) return false;
+          node.setAttribute('data-pe-i', op.id);
+          if(op.where==='before') ref.parentNode.insertBefore(node,ref);
+          else if(op.where==='append') ref.appendChild(node);
+          else ref.parentNode.insertBefore(node,ref.nextSibling);
+          return true;
+        case 'rm':
+          el=resolve(op.sel); if(!el) return false;
+          if(op.html===undefined){ op.html=liteClean(el).outerHTML; op.parent=cssPath(el.parentElement); op.index=childIndex(el); }
+          el.remove(); return true;
+        case 'mv':
+          el=resolve(op.sel); if(!el) return false;
+          if(op.fromParent===undefined) op.fromParent=cssPath(el.parentElement);
+          if(op.prevIndex===undefined) op.prevIndex=childIndex(el);
+          var par=resolve(op.parent)||el.parentElement;
+          moveToIndex(par,el,op.index); return true;
+      }
+      return false;
+    });
+  }
+  function childIndex(el){
+    var i=0, sib=el.parentElement?el.parentElement.firstElementChild:null;
+    while(sib){ if(sib===el) return i; if(!isPe(sib)) i++; sib=sib.nextElementSibling; }
+    return i;
+  }
+  function realChildren(par){
+    var out=[], sib=par.firstElementChild;
+    while(sib){ if(!isPe(sib)) out.push(sib); sib=sib.nextElementSibling; }
+    return out;
+  }
+  function moveToIndex(par,el,idx){
+    var kids=realChildren(par).filter(function(k){return k!==el;});
+    var ref=kids[idx]||null;
+    if(ref) par.insertBefore(el,ref); else par.appendChild(el);
+  }
+  function invertOp(op){
+    selfWrite(function(){
+      var el;
+      switch(op.t){
+        case 'html': el=resolve(op.sel); if(el) el.innerHTML=op.prev; break;
+        case 'attr': el=resolve(op.sel); if(el){ if(op.prev==null) el.removeAttribute(op.name); else el.setAttribute(op.name,op.prev); } break;
+        case 'css':
+          var key=op.sel+'|'+(op.scope||'all');
+          edRules[key]=edRules[key]||{};
+          for(var p in op.prev) edRules[key][p]=op.prev[p];
+          renderRules(); break;
+        case 'ins': el=resolve('[data-pe-i="'+op.id+'"]'); if(el) el.remove(); break;
+        case 'rm':
+          var par=resolve(op.parent); if(!par) break;
+          var tmp=document.createElement('div'); tmp.innerHTML=op.html;
+          var node=tmp.firstElementChild; if(!node) break;
+          var kids=realChildren(par), ref=kids[op.index]||null;
+          if(ref) par.insertBefore(node,ref); else par.appendChild(node);
+          break;
+        case 'mv': el=resolve(op.sel); if(el){ var pp=resolve(op.fromParent)||resolve(op.parent)||el.parentElement; moveToIndex(pp,el,op.prevIndex); } break;
+      }
+    });
+  }
+  function doOp(op){
+    if(!applyOp(op)){ toast('לא הצלחתי להחיל את השינוי'); return false; }
+    ops.push(op); redoStack.length=0; schedulePersist(); return true;
+  }
+  function undo(){
+    var op=ops.pop(); if(!op){ toast('אין מה לבטל'); return; }
+    deselect(); invertOp(op); redoStack.push(op); schedulePersist(); toast('בוטל');
+  }
+  function redo(){
+    var op=redoStack.pop(); if(!op){ toast('אין מה להחזיר'); return; }
+    deselect(); applyOp(op); ops.push(op); schedulePersist(); toast('הוחזר');
+  }
+
+  /* merge consecutive css ops on the same element (nudges), drop no-ops */
+  function compactOps(list){
+    var out=[];
+    for(var i=0;i<list.length;i++){
+      var op=list[i], last=out[out.length-1];
+      if(op.t==='css' && last && last.t==='css' && last.sel===op.sel && (last.scope||'all')===(op.scope||'all')){
+        for(var p in op.props) last.props[p]=op.props[p];
+        continue;
+      }
+      if(op.t==='html' && last && last.t==='html' && last.sel===op.sel){ last.html=op.html; continue; }
+      out.push(JSON.parse(JSON.stringify(op)));
+    }
+    return out;
+  }
+  function exportOps(){ /* prev values are session-only */
+    return compactOps(baseOps.concat(ops)).map(function(op){
+      var c={}; for(var k in op){ if(k!=='prev'&&k!=='prevIndex') c[k]=op[k]; } return c;
+    });
+  }
+
+  /* ---------- standalone patch applier (embedded into exported pages) ---------- */
+  /*ED_APPLIER_START*/
+  function edStandalonePatch(OPS){
+    var IMP=' !important;';
+    function res(s){ try{ return document.querySelector(s); }catch(e){ return null; } }
+    function realKids(par){ var out=[],s=par.firstElementChild; while(s){ out.push(s); s=s.nextElementSibling; } return out; }
+    function apply(){
+      var css={};
+      for(var i=0;i<OPS.length;i++){
+        var op=OPS[i], el;
+        try{
+          if(op.t==='html'){ el=res(op.sel); if(el) el.innerHTML=op.html; else console.warn('ed-patch miss',op.sel); }
+          else if(op.t==='attr'){ el=res(op.sel); if(el){ if(op.val==null) el.removeAttribute(op.name); else el.setAttribute(op.name,op.val); } else console.warn('ed-patch miss',op.sel); }
+          else if(op.t==='css'){ var k=op.sel+'|'+(op.scope||'all'); css[k]=css[k]||{}; for(var p in op.props){ if(op.props[p]==null) delete css[k][p]; else css[k][p]=op.props[p]; } }
+          else if(op.t==='ins'){ el=res(op.ref); if(el){ var t=document.createElement('div'); t.innerHTML=op.html; var n=t.firstElementChild; if(n){ n.setAttribute('data-pe-i',op.id);
+            if(op.where==='before') el.parentNode.insertBefore(n,el); else if(op.where==='append') el.appendChild(n); else el.parentNode.insertBefore(n,el.nextSibling); } } else console.warn('ed-patch miss',op.ref); }
+          else if(op.t==='rm'){ el=res(op.sel); if(el) el.remove(); }
+          else if(op.t==='mv'){ el=res(op.sel); if(el){ var par=res(op.parent)||el.parentElement; var kids=realKids(par).filter(function(x){return x!==el;}); var ref=kids[op.index]||null; if(ref) par.insertBefore(el,ref); else par.appendChild(el); } }
+        }catch(e){ console.warn('ed-patch op failed',op,e); }
+      }
+      var all='',desk='';
+      function bump(s){ return s.indexOf(' ')===-1 ? s+s : s; }
+      for(var key in css){ var j=key.lastIndexOf('|'),sel=key.slice(0,j),scope=key.slice(j+1),body='';
+        for(var q in css[key]) body+=q+':'+css[key][q]+IMP;
+        if(body){ var rule=bump(sel)+'{'+body+'}'; if(scope==='desktop') desk+=rule; else all+=rule; } }
+      var st=document.getElementById('ed-patch-css');
+      if(!st){ st=document.createElement('style'); st.id='ed-patch-css'; document.head.appendChild(st); }
+      st.textContent=all+(desk?('@media (min-width:769px){'+desk+'}'):'');
+    }
+    apply();
+    /* re-assert text/attr edits that async scripts (typewriter, count-up,
+       IO-driven rebuilds) overwrite after we ran */
+    [1500,4000,8000].forEach(function(ms){
+      setTimeout(function(){
+        for(var i=0;i<OPS.length;i++){
+          var op=OPS[i], el;
+          if(op.t==='html'){ el=res(op.sel); if(el && el.innerHTML!==op.html) el.innerHTML=op.html; }
+          else if(op.t==='attr'){ el=res(op.sel); if(el && op.val!=null && el.getAttribute(op.name)!==op.val) el.setAttribute(op.name,op.val); }
+        }
+      },ms);
+    });
+  }
+  /*ED_APPLIER_END*/
+
+  /* ---------- autosave / restore / reset ---------- */
+  function persist(){
+    try{ localStorage.setItem(LS_OPS, JSON.stringify({ts:Date.now(), ops:compactOps(ops)})); }
+    catch(e){ toast('גיבוי אוטומטי נכשל - שמור ידנית'); }
+  }
+  function schedulePersist(){ clearTimeout(persistTimer); persistTimer=setTimeout(persist,800); }
+  function checkRestore(){
+    var data; try{ data=JSON.parse(localStorage.getItem(LS_OPS)||'null'); }catch(e){ return; }
+    if(!data || !data.ops || !data.ops.length) return;
+    /* AUTO-restore: the user's autosaved edits are re-applied on every reload, so
+       "edit -> refresh -> still there" just works without clicking anything. */
+    data.ops.forEach(function(op){ if(applyOp(op)) ops.push(op); });
+    var bar=document.createElement('div'); bar.id='pe-restore';
+    var lbl=document.createElement('span'); lbl.textContent='✓ העריכות שלך נשמרות אוטומטית · '+data.ops.length+' שינויים';
+    var b2=mkBtn('התחל מחדש מהמקור', resetAll);
+    var b3=mkBtn('הבנתי', function(){ bar.remove(); }, 'primary');
+    bar.appendChild(lbl); bar.appendChild(b2); bar.appendChild(b3);
+    document.body.appendChild(bar);
+    setTimeout(function(){ if(bar.parentNode) bar.remove(); }, 9000);
+  }
+  function resetAll(){
+    if(!confirm('לאפס את הדף לגרסה המקורית? כל העריכות (כולל שמורות) יימחקו.')) return;
+    try{ localStorage.removeItem(LS_OPS); localStorage.setItem(LS_RESET,'1'); }catch(e){}
+    location.reload();
+  }
+
+  /* ---------- pristine stash + export ---------- */
+  function pristineHTML(){
+    if(!stashEl) return null;
+    try{
+      var bin=atob(stashEl.textContent.trim());
+      var bytes=new Uint8Array(bin.length);
+      for(var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+      return new TextDecoder('utf-8').decode(bytes);
+    }catch(e){ return null; }
+  }
+  function b64(str){
+    var bytes=new TextEncoder().encode(str), bin='';
+    for(var i=0;i<bytes.length;i++) bin+=String.fromCharCode(bytes[i]);
+    return btoa(bin);
+  }
+  function buildClean(){
+    flushTextEdit();
+    var pris=pristineHTML();
+    if(pris==null){ toast('שגיאה: לא נמצא עותק מקור'); return null; }
+    var all=exportOps();
+    if(!all.length) return pris;
+    var patch='<script id="ed-patch">\n/* PAGE EDIT PATCH - applied after page scripts */\n'
+      +'var OPS='+JSON.stringify(all)+';\n('+edStandalonePatch.toString()+')(OPS);\n<\/script>\n';
+    var bi=pris.lastIndexOf('</body>');
+    return bi===-1 ? pris+patch : pris.slice(0,bi)+patch+pris.slice(bi);
+  }
+  function editorCSSText(){
+    var sts=document.querySelectorAll('style');
+    for(var i=0;i<sts.length;i++){
+      var t=sts[i].textContent, a=t.indexOf('/* ===== PAGE EDIT MODE UI');
+      if(a!==-1){
+        var b=t.indexOf('/* ===== END PAGE EDIT MODE UI ===== */',a);
+        if(b!==-1) return t.slice(a,b+'/* ===== END PAGE EDIT MODE UI ===== */'.length);
+      }
+    }
+    return '';
+  }
+  var SENTINEL_SRC='<script id="ed-sentinel">\n'
+    +'(function(){window.__edMut=new WeakSet();window.__edMutLate=new WeakSet();window.__edSelf=false;window.__edLoadDone=false;\n'
+    +'function isEdNode(n){if(n.nodeType!==1)return false;var id=n.id||"",cl=(typeof n.className==="string"?n.className:"");return id.indexOf("ed-")===0||id.indexOf("pe-")===0||/(^| )pe-(del|handle)( |$)/.test(cl);}\n'
+    +'function onlyEdNodes(rec){var ls=[rec.addedNodes,rec.removedNodes],saw=false;for(var j=0;j<2;j++)for(var k=0;k<ls[j].length;k++){var n=ls[j][k];if(n.nodeType===3)return false;if(!isEdNode(n))return false;saw=true;}return saw;}\n'
+    +'try{window.__edObs=new MutationObserver(function(list){if(window.__edSelf)return;for(var i=0;i<list.length;i++){var t=list[i].target;if(t.nodeType===3)t=t.parentElement;if(!t||isEdNode(t))continue;if(t.isContentEditable)continue;if(t.closest&&t.closest(\'[id^="ed-"],[id^="pe-"]\'))continue;if(list[i].type==="childList"&&onlyEdNodes(list[i]))continue;window.__edMut.add(t);if(window.__edLoadDone)window.__edMutLate.add(t);}});\n'
+    +'window.__edObs.observe(document.documentElement,{childList:true,characterData:true,subtree:true});\n'
+    +'window.addEventListener("load",function(){setTimeout(function(){window.__edLoadDone=true;},600);});}catch(e){}})();\n<\/script>\n';
+  function buildEditable(){
+    flushTextEdit();
+    var pris=pristineHTML();
+    if(pris==null || !SELF_SRC) return null;
+    var all=exportOps(), out=pris;
+    var hm=out.match(/<head[^>]*>/);
+    if(hm) out=out.slice(0,hm.index+hm[0].length)+'\n'+SENTINEL_SRC+out.slice(hm.index+hm[0].length);
+    var css=editorCSSText();
+    var si=out.lastIndexOf('</style>');
+    if(si!==-1 && css) out=out.slice(0,si)+'\n'+css+'\n'+out.slice(si);
+    var block='<script type="text/plain" id="ed-pristine">'+b64(pris)+'<\/script>\n'
+      +'<script type="application/json" id="ed-base">'+JSON.stringify({ops:all})+'<\/script>\n'
+      +'<script type="application/json" id="ed-config">'+JSON.stringify(CFG)+'<\/script>\n'
+      +'<script>\n'+SELF_SRC+'\n<\/script>\n';
+    var bi=out.lastIndexOf('</body>');
+    out = bi===-1 ? out+block : out.slice(0,bi)+block+out.slice(bi);
+    return out;
+  }
+  function download(html,name){
+    var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+    a.download=name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); },3000);
+  }
+  async function saveEditable(){
+    var html=buildEditable();
+    if(html==null){ var c=buildClean(); if(c) download(c, FILE+'-edited.html'); toast('ירד עותק 📁 · העריכות נשמרות פה אוטומטית'); return; }
+    var fname=(location.pathname.split('/').pop()||FILE+'.html');
+    try{ fname=decodeURIComponent(fname); }catch(e){}
+    try{
+      if(window.showSaveFilePicker){
+        if(!fileHandle){
+          fileHandle=await window.showSaveFilePicker({
+            suggestedName:fname,
+            types:[{description:'HTML',accept:{'text/html':['.html']}}]
+          });
+        } else if(fileHandle.requestPermission){
+          var p=await fileHandle.requestPermission({mode:'readwrite'});
+          if(p!=='granted') fileHandle=null;
+        }
+        if(fileHandle){
+          var w=await fileHandle.createWritable();
+          await w.write(html); await w.close();
+          afterSave(); toast('נשמר בקובץ ✓ ('+(fileHandle.name||fname)+')'); /* baked into file - LS can clear */
+          return;
+        }
+      }
+    }catch(e){ if(e && e.name==='AbortError'){ toast('השמירה בוטלה'); return; } }
+    /* fallback (file:// can't write in place): download a backup copy but KEEP the
+       autosave so a refresh of the page still shows the edits - never wipe LS here */
+    download(html, FILE+'-edited.html');
+    toast('ירד קובץ עם העריכות 📁 · ממשיכים לערוך כאן, הכל נשמר אוטומטית');
+  }
+  function afterSave(){
+    baseOps=exportOps(); ops=[]; redoStack=[];
+    try{ localStorage.removeItem(LS_OPS); localStorage.removeItem(LS_RESET); }catch(e){}
+    resetBase=false;
+    var be=document.getElementById('ed-base');
+    if(be) selfWrite(function(){ be.textContent=JSON.stringify({ops:baseOps}); });
+  }
+  function exportClean(){
+    var html=buildClean(); if(!html) return;
+    download(html, FILE+'-publish.html');
+    toast('ירד הקובץ הסופי לאתר 🚀 · העריכות שלך כבר נשמרות פה - לפרסום בפועל תגיד לקלוד');
+  }
+
+  /* ---------- lock detection (script-owned content) ---------- */
+  function lockedEl(el){
+    var cur=el;
+    while(cur && cur!==document.body){
+      if(matches(cur,CFG.lock)) return cur;
+      if(window.__edMutLate && window.__edMutLate.has(cur) && !cur.closest('[data-target],[data-count]')) return cur;
+      cur=cur.parentElement;
+    }
+    return null;
+  }
+
+  /* ---------- eligibility ---------- */
+  function eligible(el){
+    if(isPe(el)) return null;
+    var cur=el;
+    while(cur && cur!==document.body && cur!==document.documentElement){
+      if(matches(cur,CFG.deny)){ cur=cur.parentElement; continue; }
+      if(cur.nodeType===1) return cur;
+      cur=cur.parentElement;
+    }
+    return null;
+  }
+  /* a single click should select the meaningful UNIT the user sees, not the
+     innermost text fragment: a split headline selects whole, a card selects the
+     card. Double-click still edits the precise text leaf (uses eligibleText). */
+  var INLINE='span,a,b,i,em,strong,small,sub,sup,mark,.hl-word,.fade';
+  var CARDISH='[class*="card"],[class*="cell"],[class*="tile"],[class*="-box"],[class*="box-"],[class*="-item"],[class*="item-"],.point,.bullet,.benefit,.feature,.step,.plan,.pricing,.bento,.faq-item,.stat-item,figure,blockquote,li';
+  function selectionUnit(el, drill){
+    if(!el) return el;
+    /* an added image: always grab the whole block (so move/resize/relocate are coherent) */
+    if(!drill && matches(el,'img')){ var blk=el.closest && el.closest('.pe-img-block'); if(blk) return blk; }
+    var cur=el;
+    /* 1. inline fragment -> nearest block (whole headline, not one word) - but a
+       link/button is itself a meaningful unit, so stop AT it (don't climb to a
+       wrapper holding several buttons) */
+    while(cur && cur!==document.body && matches(cur,INLINE) && !matches(cur,'a,button')){
+      var p=cur.parentElement;
+      if(!p || p===document.body || matches(p,CFG.deny)) break;
+      if(matches(p,'a,button')){ cur=p; break; } /* land on the link/button, then stop */
+      cur=p;
+    }
+    if(drill) return cur;
+    /* 2. a text/leaf inside a small card -> the card (so "click card" grabs it all) */
+    if(!isSection(cur)){
+      var card=cur.closest && cur.closest(CARDISH);
+      if(card && card!==cur && card.contains(cur) && !matches(card,CFG.deny) &&
+         !isSection(card) && card.offsetHeight < window.innerHeight*0.9){
+        cur=card;
+      }
+    }
+    return cur;
+  }
+  /* clicking a wrapper that visually sits over an <img> should grab the image */
+  function imageUnder(e, fallback){
+    if(fallback && (matches(fallback,'img,.pe-img-block') || (fallback.querySelector && fallback.querySelector('img')))) return null;
+    try{
+      var stack=document.elementsFromPoint(e.clientX,e.clientY);
+      for(var i=0;i<stack.length;i++){
+        var s=stack[i];
+        if(isPe(s)) continue;
+        if(matches(s,'img') && !matches(s,CFG.deny) && eligible(s)) return s;
+        if(matches(s,'h1,h2,h3,h4,h5,h6,p,a,button,li,.pe-text')) return null; /* clicked real text */
+      }
+    }catch(err){}
+    return null;
+  }
+  var TEXTY='h1,h2,h3,h4,h5,h6,p,li,a,button,span,label,td,th,figcaption,small,strong,em,blockquote,dt,dd,summary,.pe-text';
+  function isTexty(el){
+    if(matches(el,TEXTY)) return true;
+    if(matches(el,'div')){
+      /* ignore the editor's own chrome children (.pe-del lands inside on select) */
+      var kids=realChildren(el).filter(function(k){ return !isPe(k); }), ok=true;
+      for(var i=0;i<kids.length;i++){ if(!matches(kids[i],'span,a,b,i,strong,em,br,small,sub,sup')){ ok=false; break; } }
+      return ok && (el.textContent||'').trim().length>0;
+    }
+    return false;
+  }
+  function eligibleText(el){
+    var cur=el;
+    while(cur && cur!==document.body){
+      if(matches(cur,CFG.deny)){ cur=cur.parentElement; continue; }
+      if(isTexty(cur)) return cur;
+      cur=cur.parentElement;
+    }
+    return null;
+  }
+  function selectParent(){
+    if(!selected){ toast('בחר אלמנט קודם'); return; }
+    var p=selected.parentElement;
+    while(p && p!==document.body){
+      if(!matches(p,CFG.deny)){ select(p); toast(isSection(p)?'נבחר הסקשן':'נבחרה המסגרת'); return; }
+      p=p.parentElement;
+    }
+    toast('אין מסגרת אב');
+  }
+
+  /* ---------- sections ---------- */
+  function getSections(){
+    var list=[].slice.call(document.querySelectorAll(CFG.sections)).filter(function(s){
+      var cs=getComputedStyle(s);
+      return cs.position!=='fixed' && s.offsetHeight>80 && !isPe(s);
+    });
+    if(list.length) return list;
+    var root=document.querySelector('main')||document.body;
+    return realChildren(root).filter(function(s){
+      var cs=getComputedStyle(s);
+      return cs.position!=='fixed' && cs.display!=='none' && s.offsetHeight>120 &&
+        !matches(s,'script,style,nav') && !matches(s,CFG.deny);
+    });
+  }
+  function isSection(el){ return getSections().indexOf(el)!==-1; }
+  function moveSection(dir){
+    if(!selected || !isSection(selected)) return;
+    /* clamp in SECTION space - swapping with nav/fixed body children is a no-op */
+    var secs=getSections(), si=secs.indexOf(selected), target=secs[si+dir];
+    if(!target || target.parentElement!==selected.parentElement){ toast('אין לאן להזיז'); return; }
+    var kids=realChildren(selected.parentElement).filter(function(k){ return k!==selected; });
+    var ti=kids.indexOf(target);
+    if(ti===-1){ toast('אין לאן להזיז'); return; }
+    /* stable anchor so an immediate Cmd+Z resolves the right section after the swap */
+    doOp({t:'mv', sel:stableSel(selected), parent:cssPath(selected.parentElement), index: dir>0 ? ti+1 : ti});
+    selected.scrollIntoView({block:'center'});
+    toast(dir<0?'הסקשן עלה':'הסקשן ירד');
+  }
+  /* strip editor artifacts but KEEP ids (for undo re-insertion at the same spot) */
+  function liteClean(el){
+    var c=el.cloneNode(true), i, n;
+    n=c.querySelectorAll('.pe-del,.pe-handle'); for(i=0;i<n.length;i++) n[i].remove();
+    n=c.querySelectorAll('[contenteditable],[spellcheck]');
+    for(i=0;i<n.length;i++){ n[i].removeAttribute('contenteditable'); n[i].removeAttribute('spellcheck'); }
+    c.removeAttribute('contenteditable'); c.removeAttribute('spellcheck');
+    var strip=[c].concat([].slice.call(c.querySelectorAll('.pe-selected,.pe-hover,.pe-locked-hover')));
+    strip.forEach(function(s){ if(s.classList){ s.classList.remove('pe-selected'); s.classList.remove('pe-hover'); s.classList.remove('pe-locked-hover'); if(!s.classList.length) s.removeAttribute('class'); } });
+    return c;
+  }
+  function cleanClone(el){
+    var c=el.cloneNode(true), i, n;
+    n=c.querySelectorAll('.pe-del,.pe-handle'); for(i=0;i<n.length;i++) n[i].remove();
+    n=c.querySelectorAll('[contenteditable]'); for(i=0;i<n.length;i++) n[i].removeAttribute('contenteditable');
+    n=c.querySelectorAll('[spellcheck]'); for(i=0;i<n.length;i++) n[i].removeAttribute('spellcheck');
+    c.classList.remove('pe-selected','pe-hover','pe-locked-hover');
+    n=c.querySelectorAll('.pe-selected,.pe-hover,.pe-locked-hover'); for(i=0;i<n.length;i++){ n[i].classList.remove('pe-selected'); n[i].classList.remove('pe-hover'); n[i].classList.remove('pe-locked-hover'); }
+    c.removeAttribute('contenteditable');
+    /* duplicated ids would break the page; duplicated reveal-classes stay invisible forever */
+    if(c.id) c.removeAttribute('id');
+    n=c.querySelectorAll('[id]'); for(i=0;i<n.length;i++) n[i].removeAttribute('id');
+    c.classList.remove('fadeup-ready','fadeup-done');
+    n=c.querySelectorAll('.fadeup-ready,.fadeup-done'); for(i=0;i<n.length;i++){ n[i].classList.remove('fadeup-ready'); n[i].classList.remove('fadeup-done'); n[i].style.animationDelay=''; }
+    n=c.querySelectorAll('[data-pe-i]'); for(i=0;i<n.length;i++) n[i].removeAttribute('data-pe-i');
+    c.removeAttribute('data-pe-i');
+    /* the editor force-opens disclosures while editing (.pe-opened marks ours);
+       undo that on the clone so a duplicated FAQ/section doesn't ship stuck-open */
+    n=c.querySelectorAll('.pe-opened'); for(i=0;i<n.length;i++){ n[i].classList.remove('open'); n[i].classList.remove('pe-opened'); }
+    if(c.classList && c.classList.contains('pe-opened')){ c.classList.remove('open'); c.classList.remove('pe-opened'); }
+    n=c.querySelectorAll('details[open]'); for(i=0;i<n.length;i++) n[i].removeAttribute('open');
+    return c;
+  }
+  function duplicateSel(){
+    if(!selected){ toast('בחר אלמנט קודם'); return; }
+    var clone=cleanClone(selected);
+    var id=String(++insCounter)+'-'+Date.now()%100000;
+    if(doOp({t:'ins', ref:cssPath(selected), where:'after', html:clone.outerHTML, id:id})){
+      var node=resolve('[data-pe-i="'+id+'"]');
+      if(node){ select(node); node.scrollIntoView({block:'nearest'}); }
+      toast('שוכפל ✓');
+    }
+  }
+  function hideSel(){
+    if(!selected){ toast('בחר אלמנט קודם'); return; }
+    var el=selected; deselect();
+    doOp({t:'css', sel:stableSel(el), scope:'all', props:{display:'none'}});
+    toast('הוסתר (👻 בסרגל מציג מוסתרים)');
+  }
+  function listHidden(){
+    var out=[];
+    for(var k in edRules){
+      if(edRules[k] && edRules[k].display==='none'){
+        var sel=k.slice(0,k.lastIndexOf('|'));
+        out.push(sel);
+      }
+    }
+    return out;
+  }
+  /* styled in-editor panel (no native prompt) listing hidden items to restore */
+  function unhideMenu(){
+    var existing=document.getElementById('pe-hidden-panel'); if(existing){ existing.remove(); return; }
+    var hid=listHidden();
+    if(!hid.length){ toast('אין אלמנטים מוסתרים'); return; }
+    var panel=document.createElement('div'); panel.id='pe-hidden-panel';
+    var title=document.createElement('div'); title.className='pe-panel-title'; title.textContent='אלמנטים מוסתרים - לחצו "הצג" כדי להחזיר';
+    panel.appendChild(title);
+    hid.forEach(function(s){
+      var el=resolve(s);
+      var row=document.createElement('div'); row.className='pe-panel-row';
+      var lbl=document.createElement('span');
+      lbl.textContent = el ? (isSection(el)?'מקטע · ':'') + '«'+(el.textContent||'').trim().slice(0,40)+'»' : s;
+      var b=mkBtn('הצג',function(){
+        doOp({t:'css', sel:s, scope:'all', props:{display:null}});
+        row.remove(); toast('הוצג מחדש ✓');
+        if(!panel.querySelector('.pe-panel-row')) panel.remove();
+      },'primary');
+      row.appendChild(lbl); row.appendChild(b); panel.appendChild(row);
+    });
+    var close=mkBtn('סגור',function(){ panel.remove(); });
+    panel.appendChild(close);
+    document.body.appendChild(panel);
+  }
+  function spacingDelta(d){
+    if(!selected){ toast('בחר סקשן או אלמנט'); return; }
+    var cs=getComputedStyle(selected);
+    var pt=Math.max(0,(parseFloat(cs.paddingTop)||0)+d), pb=Math.max(0,(parseFloat(cs.paddingBottom)||0)+d);
+    doOp({t:'css', sel:stableSel(selected), scope:'desktop', props:{'padding-top':pt+'px','padding-bottom':pb+'px'}});
+    toast('ריווח: '+pt+'px');
+  }
+
+  /* ---------- selection + handles ----------
+     selection chrome (× / resize handle) lives as a FIXED overlay on body,
+     positioned from getBoundingClientRect every frame - so it is never clipped
+     by overflow:hidden cards, never mis-anchors on static ancestors, and
+     follows the element during drags/scrolls. */
+  var chromeEls=null, chromeRAF=null;
+  function dropClassResidue(el){ if(el && el.classList && !el.classList.length) el.removeAttribute('class'); }
+  function removeChrome(){
+    if(chromeEls){
+      selfWrite(function(){ chromeEls.del.remove(); if(chromeEls.handle) chromeEls.handle.remove(); });
+      chromeEls=null;
+    }
+    if(chromeRAF){ cancelAnimationFrame(chromeRAF); chromeRAF=null; }
+  }
+  function positionChrome(){
+    if(!chromeEls || !selected || !selected.isConnected){ removeChrome(); return; }
+    var r=selected.getBoundingClientRect();
+    chromeEls.del.style.left=(r.left-14)+'px'; chromeEls.del.style.top=(r.top-14)+'px';
+    if(chromeEls.handle){
+      /* anchor the resize handle to the visible IMAGE, not the wider block, so it
+         sits on the corner the user is looking at */
+      var im=matches(selected,'img')?selected:selected.querySelector('img');
+      var hr=im?im.getBoundingClientRect():r;
+      chromeEls.handle.style.left=(hr.left-10)+'px'; chromeEls.handle.style.top=(hr.bottom-10)+'px';
+    }
+    chromeRAF=requestAnimationFrame(positionChrome);
+  }
+  function deselect(){
+    if(selected){ selected.classList.remove('pe-selected'); dropClassResidue(selected); }
+    removeChrome();
+    selected=null; refreshTb();
+  }
+  function select(el){
+    deselect();
+    selected=el; el.classList.add('pe-selected');
+    selfWrite(function(){
+      var del=document.createElement('div'); del.className='pe-del'; del.textContent='×';
+      del.addEventListener('mousedown',function(e){ e.stopPropagation(); e.preventDefault(); });
+      del.addEventListener('click',function(e){ e.stopPropagation(); deleteSel(); });
+      document.body.appendChild(del);
+      var h=null;
+      if(matches(el,'img,.pe-img-block')){
+        h=document.createElement('div'); h.className='pe-handle br';
+        h.addEventListener('mousedown',function(e){ startResize(e,el); });
+        document.body.appendChild(h);
+      }
+      chromeEls={del:del, handle:h};
+    });
+    positionChrome();
+    refreshTb();
+  }
+  function deleteSel(){
+    if(!selected){ toast('בחר אלמנט קודם'); return; }
+    var el=selected; deselect();
+    selfWrite(function(){ var rt=el.querySelectorAll('.pe-del,.pe-handle'); for(var i=0;i<rt.length;i++) rt[i].remove(); });
+    doOp({t:'rm', sel:cssPath(el)});
+    toast('נמחק (Cmd+Z לביטול)');
+  }
+
+  /* ---------- transform helpers (cosmetic moves, desktop-scoped) ---------- */
+  /* CSS transforms do not render on non-atomic inline elements - climb to the
+     nearest block-ish ancestor so moving a headline SPAN actually moves it */
+  function moveTarget(el){
+    var cur=el;
+    while(cur && cur!==document.body){
+      var d=getComputedStyle(cur).display;
+      if(d!=='inline' && d!=='contents') return cur;
+      cur=cur.parentElement;
+    }
+    return el;
+  }
+  /* the editor's force-visible rule pins .fadeup-ready at transform:none !important,
+     which would block a move from showing in-editor. Once we move an element it is
+     clearly on-screen, so drop the entry-reveal class for the session (export rebuilds
+     from pristine, so the reveal still ships). */
+  function unpin(el){
+    if(!el || !el.classList) return;
+    if(el.classList.contains('fadeup-ready')||el.classList.contains('fadeup-done')||el.style.animationName){
+      selfWrite(function(){
+        el.classList.remove('fadeup-ready'); el.classList.remove('fadeup-done');
+        el.style.animation='none';
+        if(getComputedStyle(el).opacity!=='1') el.style.opacity='1';
+        dropClassResidue(el);
+      });
+    }
+  }
+  /* stable selector for css ops: positional nth-child paths silently retarget
+     after section reorders/inserts - stamp a persistent anchor instead.
+     The stamp itself is an attr op, replayed in ops order, so it always lands
+     on the right element regardless of later structural changes. */
+  function stableSel(el){
+    if(goodId(el)) return '#'+CSS.escape(el.id);
+    var pi=el.getAttribute('data-pe-i');
+    if(pi) return '[data-pe-i="'+pi+'"]';
+    var id='a'+String(++insCounter)+'-'+(Date.now()%100000);
+    doOp({t:'attr', sel:cssPath(el), name:'data-pe-i', val:id});
+    return '[data-pe-i="'+id+'"]';
+  }
+  function curSelKey(el){
+    if(goodId(el)) return '#'+CSS.escape(el.id);
+    var pi=el.getAttribute('data-pe-i');
+    if(pi) return '[data-pe-i="'+pi+'"]';
+    return cssPath(el);
+  }
+  function curTranslate(el){
+    var sel=curSelKey(el), v=cssGet(sel,'desktop','transform');
+    var m=v?v.match(/translate\(([-\d.]+)px,\s*([-\d.]+)px\)/):null;
+    return {x:m?parseFloat(m[1]):0, y:m?parseFloat(m[2]):0, sel:sel};
+  }
+  function commitTranslate(el,x,y,merge){
+    unpin(el);
+    var sel=stableSel(el);
+    var props={transform:(x===0&&y===0)?null:('translate('+Math.round(x)+'px,'+Math.round(y)+'px)')};
+    var cs=getComputedStyle(el);
+    if(cs.animationName && cs.animationName!=='none') props.opacity=cs.opacity;
+    if(merge && ops.length){
+      var last=ops[ops.length-1];
+      if(last.t==='css' && last.sel===sel && last.scope==='desktop' && last.props.transform!==undefined){
+        selfWrite(function(){
+          for(var p in props) { edRules[sel+'|desktop']=edRules[sel+'|desktop']||{}; edRules[sel+'|desktop'][p]=props[p]; last.props[p]=props[p]; }
+          renderRules();
+        });
+        schedulePersist(); return;
+      }
+    }
+    doOp({t:'css', sel:sel, scope:'desktop', props:props});
+  }
+
+  /* ---------- drag (translate-based, scroll-compensated, center snap) ---------- */
+  var guideV=null;
+  function hideGuide(){ if(guideV) guideV.style.display='none'; }
+  /* commit any open inline text edit (blur handler records the op synchronously).
+     Without this, clicking elsewhere / toolbar buttons silently DROP the edit. */
+  function flushTextEdit(){
+    if(editState && editState.el){ try{ editState.el.blur(); }catch(e){} }
+    else { var ae=document.activeElement; if(ae && ae.isContentEditable){ try{ ae.blur(); }catch(e){} } }
+  }
+  function onDown(e){
+    if(e.target.classList && (e.target.classList.contains('pe-handle')||e.target.classList.contains('pe-del'))) return;
+    if(editState && editState.el){
+      if(editState.el.contains(e.target)) return; /* caret placement inside the edit */
+      flushTextEdit(); /* the natural "I'm done" gesture commits */
+    }
+    var el, drillTo=null;
+    if(selected && selected.contains(e.target) && !isSection(selected)){
+      /* already holding this unit: a plain click drills into the child clicked,
+         a drag moves the whole unit (resolved in onUp by drag.moved) */
+      el=selected;
+      /* drill targets the SPECIFIC thing clicked (one level deeper), not a re-promoted unit */
+      var raw=eligible(e.target);
+      if(raw && raw!==selected && selected.contains(raw) && !isPe(raw)) drillTo=raw;
+    } else {
+      var lock=lockedEl(e.target);
+      if(lock){ toast('🔒 הטקסט הזה מנוהל בקוד - בקשו מ-Claude לשנות'); deselect(); return; }
+      var raw0=eligible(e.target);
+      if(!raw0){ if(selected) toast('בוטלה הבחירה'); deselect(); return; }
+      if(raw0.isContentEditable) return;
+      el = imageUnder(e, raw0) || selectionUnit(raw0, false);
+      if(isSection(el)) toast('נבחר הסקשן - אפשר להזיז / לשכפל / להסתיר');
+      select(el);
+    }
+    if(el.isContentEditable) return;
+    var mt=moveTarget(el);
+    var t0=curTranslate(mt);
+    drag={el:mt, x:e.clientX, y:e.clientY, sy:window.scrollY, tx:t0.x, ty:t0.y, moved:false, drillTo:drillTo};
+    var r=mt.getBoundingClientRect();
+    drag.cx0=r.left+window.scrollX+r.width/2-t0.x;
+    var sec=getSections().find(function(s){return s.contains(mt);});
+    drag.startSec=sec||null;
+    drag.secCx = sec ? (sec.getBoundingClientRect().left+window.scrollX+sec.offsetWidth/2) : (document.body.clientWidth/2);
+    e.preventDefault();
+  }
+  var edgeRAF=null;
+  function applyDrag(noAlt){
+    if(!drag) return;
+    var dx=drag.clientX-drag.x, dy=(drag.clientY-drag.y)+(window.scrollY-drag.sy);
+    var tx=drag.tx+dx, ty=drag.ty+dy, SN=7, snapX=false;
+    if(noAlt){
+      var c=drag.cx0+tx;
+      if(Math.abs(drag.secCx-c)<SN){ tx+=(drag.secCx-c); snapX=true; }
+      if(Math.abs(tx)<SN && Math.abs(ty)<SN){ tx=0; ty=0; }
+    }
+    drag.curX=tx; drag.curY=ty;
+    /* inline + !important so the live preview beats any already-committed
+       transform rule (a 2nd drag of a moved element otherwise looks frozen) */
+    selfWrite(function(){ drag.el.style.setProperty('transform','translate('+tx+'px,'+ty+'px)','important'); });
+    if(guideV){
+      if(snapX){ guideV.style.display='block'; guideV.style.position='fixed';
+        guideV.style.left=(drag.secCx-window.scrollX-1)+'px'; guideV.style.top='0'; guideV.style.height='100vh'; }
+      else guideV.style.display='none';
+    }
+  }
+  /* auto-scroll the page when the cursor is held near the top/bottom edge so an
+     element can be dragged across more than one screen (e.g. into a far section) */
+  function edgeScroll(){
+    if(!drag || !drag.moved){ edgeRAF=null; return; }
+    var y=drag.clientY, band=90, max=24, dv=0;
+    if(y<band) dv=-Math.ceil((band-y)/band*max);
+    else if(y>window.innerHeight-band) dv=Math.ceil((y-(window.innerHeight-band))/band*max);
+    if(dv){ window.scrollBy(0,dv); applyDrag(!drag.alt); }
+    edgeRAF=requestAnimationFrame(edgeScroll);
+  }
+  function onMove(e){
+    if(!drag) return;
+    drag.clientX=e.clientX; drag.clientY=e.clientY; drag.alt=e.altKey;
+    var dx=e.clientX-drag.x, dy=(e.clientY-drag.y)+(window.scrollY-drag.sy);
+    if(!drag.moved){
+      /* 6px slop so a slightly shaky click is never misread as a drag */
+      if(Math.abs(dx)+Math.abs(dy)<6) return;
+      drag.moved=true;
+      /* free the element from the entry-reveal pin so the live drag actually shows */
+      unpin(drag.el);
+      selfWrite(function(){ drag.el.style.animation='none'; });
+      if(!edgeRAF) edgeRAF=requestAnimationFrame(edgeScroll);
+    }
+    applyDrag(!e.altKey);
+  }
+  function onUp(){
+    if(drag && drag.moved){
+      var el=drag.el, x=drag.curX, y=drag.curY;
+      /* measure WHERE it was dragged to BEFORE clearing the live transform */
+      var rect=el.getBoundingClientRect();
+      var cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
+      selfWrite(function(){ el.style.transform=''; el.style.animation=''; });
+      var destSec=getSections().find(function(s){
+        var r=s.getBoundingClientRect(); return cy>=r.top && cy<=r.bottom && cx>=r.left && cx<=r.right;
+      });
+      if(destSec && drag.startSec && destSec!==drag.startSec && !isSection(el) && destSec.contains){
+        relocateInto(el, destSec, cy);
+      } else if(Math.round(x)!==Math.round(drag.tx) || Math.round(y)!==Math.round(drag.ty)){
+        commitTranslate(el,x,y,false);
+        toast('הוזז ✓ (חל על מחשב · 📱 לבדיקת מובייל)');
+      }
+    } else if(drag && !drag.moved && drag.drillTo){
+      select(drag.drillTo); /* a plain click inside the selection drills one level in */
+    }
+    hideGuide(); drag=null;
+  }
+  /* move an element into another section's flow (real DOM relocation) - this is
+     what "drag an image between sections" should do; structural so it applies on
+     mobile too. We clear any leftover translate so it reflows naturally. */
+  function relocateInto(el, destSec, cy){
+    var kids=realChildren(destSec).filter(function(k){ return k!==el && !isPe(k); });
+    var idx=kids.length, i;
+    for(i=0;i<kids.length;i++){
+      var r=kids[i].getBoundingClientRect();
+      if(cy < r.top+r.height/2){ idx=i; break; }
+    }
+    var anchor=stableSel(el); /* stamps data-pe-i so undo + future ops resolve it */
+    if(cssGet(anchor,'desktop','transform')!=null)
+      doOp({t:'css', sel:anchor, scope:'desktop', props:{transform:null}});
+    doOp({t:'mv', sel:anchor, parent:stableSel(destSec), index:idx});
+    select(el); el.scrollIntoView({block:'center'});
+    toast('הועבר למקטע אחר ✓');
+  }
+  function nudge(dx,dy){
+    if(!selected) return false;
+    var mt=moveTarget(selected);
+    var t=curTranslate(mt);
+    var now=Date.now();
+    var merge = lastNudge.el===mt && (now-lastNudge.t)<1200;
+    lastNudge={el:mt,t:now};
+    var nx=t.x+dx, ny=t.y+dy;
+    commitTranslate(mt, nx, ny, merge);
+    toast('הוזז · '+Math.round(nx)+','+Math.round(ny)+'px');
+    return true;
+  }
+  function centerSel(){
+    if(!selected){ toast('בחר אלמנט קודם'); return; }
+    var mt=moveTarget(selected);
+    var t=curTranslate(mt);
+    var r=mt.getBoundingClientRect();
+    var sec=getSections().find(function(s){return s.contains(mt);});
+    var secCx=sec?(sec.getBoundingClientRect().left+sec.offsetWidth/2):(document.body.clientWidth/2);
+    var c=r.left+r.width/2 - t.x;
+    commitTranslate(mt, secCx-c, t.y, false);
+    toast('מורכז לרוחב ✓');
+  }
+  /* zero out just this element's move offset (escape hatch from a bad drag) */
+  function resetPos(){
+    if(!selected){ toast('בחר אלמנט קודם'); return; }
+    var mt=moveTarget(selected), key=curSelKey(mt);
+    if(cssGet(key,'desktop','transform')==null){ toast('האלמנט הזה לא הוזז'); return; }
+    doOp({t:'css', sel:key, scope:'desktop', props:{transform:null}});
+    toast('המיקום אופס ✓'); refreshTb();
+  }
+  function hasMove(el){ var mt=moveTarget(el); return cssGet(curSelKey(mt),'desktop','transform')!=null; }
+
+  /* ---------- resize (images) ---------- */
+  function startResize(e,el){
+    e.preventDefault(); e.stopPropagation();
+    var img=matches(el,'img')?el:el.querySelector('img');
+    var target=img||el;
+    var w=target.offsetWidth, x=e.clientX, moved=false;
+    function mv(ev){
+      var nw=Math.max(60, w-(ev.clientX-x)); /* RTL: dragging left grows */
+      moved=true;
+      selfWrite(function(){ target.style.width=nw+'px'; target.style.maxWidth='100%'; target.style.height='auto'; });
+    }
+    function up(ev){
+      window.removeEventListener('mousemove',mv,true); window.removeEventListener('mouseup',up,true);
+      if(moved){
+        var nw=target.offsetWidth;
+        selfWrite(function(){ target.style.width=''; target.style.maxWidth=''; target.style.height=''; });
+        doOp({t:'css', sel:stableSel(target), scope:'desktop', props:{width:nw+'px','max-width':'100%',height:'auto'}});
+      }
+    }
+    window.addEventListener('mousemove',mv,true); window.addEventListener('mouseup',up,true);
+  }
+
+  /* ---------- inline text editing ---------- */
+  function bakeCounterAttrs(el){
+    var dc=el.closest ? el.closest('[data-target],[data-count]') : null;
+    if(!dc) return;
+    var n=parseInt((dc.textContent||'').replace(/[^0-9]/g,''),10);
+    if(isNaN(n)) return;
+    var name=dc.hasAttribute('data-target')?'data-target':'data-count';
+    doOp({t:'attr', sel:cssPath(dc), name:name, val:String(n)});
+  }
+  function offerApplyToTwins(el, prevText, newText, newHTML){
+    if(!prevText || prevText===newText || el.children.length) return;
+    var twins=[];
+    document.querySelectorAll(TEXTY).forEach(function(t){
+      if(t===el || isPe(t) || t.children.length) return;
+      if(lockedEl(t)) return;
+      if((t.textContent||'').trim()===prevText) twins.push(t);
+    });
+    if(!twins.length) return;
+    var n=twins.length;
+    var msg = n===1 ? 'הטקסט הזה מופיע עוד פעם אחת בדף' : 'הטקסט הזה מופיע עוד '+n+' פעמים בדף';
+    toastAction(msg, n===1?'החל גם שם':'החל על כולם', function(){
+      twins.forEach(function(t){ doOp({t:'html', sel:cssPath(t), html:newHTML}); });
+      toast(n===1 ? 'עודכן מופע נוסף ✓' : 'עודכנו '+n+' מופעים ✓');
+    });
+  }
+  function startTextEdit(el){
+    deselect();
+    var prev=el.innerHTML, prevText=(el.textContent||'').trim();
+    editState={el:el, orig:prev, cancelled:false};
+    selfWrite(function(){
+      el.setAttribute('contenteditable','true');
+      el.setAttribute('spellcheck','false');
+      el.focus();
+      /* bare focus() leaves the caret at the logical START - put it at the end */
+      try{
+        var r=document.createRange(); r.selectNodeContents(el); r.collapse(false);
+        var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      }catch(e){}
+    });
+    refreshTb();
+    function onPaste(ev){
+      ev.preventDefault();
+      var txt=''; try{ txt=(ev.clipboardData||window.clipboardData).getData('text/plain'); }catch(err){}
+      if(txt) document.execCommand('insertText',false,txt);
+    }
+    el.addEventListener('paste',onPaste);
+    el.addEventListener('blur',function h(){
+      el.removeEventListener('blur',h); el.removeEventListener('paste',onPaste);
+      var cancelled=editState && editState.cancelled;
+      var newHTML=el.innerHTML;
+      selfWrite(function(){
+        el.removeAttribute('contenteditable'); el.removeAttribute('spellcheck');
+        el.innerHTML=prev; /* restore, then re-apply as an op so undo/export see it */
+      });
+      if(editState && editState.el===el) editState=null;
+      if(cancelled || newHTML===prev){ refreshTb(); return; }
+      doOp({t:'html', sel:cssPath(el), html:newHTML, prev:prev});
+      bakeCounterAttrs(el);
+      /* keep the element selected after editing so resize/color stay one click away */
+      if(el.isConnected && !matches(el,CFG.deny)) select(el); else refreshTb();
+      offerApplyToTwins(el, prevText, (el.textContent||'').trim(), newHTML);
+    });
+  }
+  function onDbl(e){
+    var lock=lockedEl(e.target);
+    if(lock){
+      if(lock.closest('[data-target],[data-count]')){ /* count-up stats: editable + attr sync */ }
+      else { toast('🔒 הטקסט הזה נכתב ע"י קוד - בקשו מ-Claude לשנות'); return; }
+    }
+    var el=eligibleText(e.target);
+    if(!el){ toast('האלמנט הזה לא טקסט לעריכה'); return; }
+    e.preventDefault();
+    startTextEdit(el);
+  }
+
+  /* ---------- colors (page palette, gradient-clip safe) ---------- */
+  var palette=null, GRAD=null;
+  function parseColor(v){
+    v=(v||'').trim();
+    var m=v.match(/^#([0-9a-fA-F]{3,8})$/);
+    if(m){
+      var h=m[1];
+      if(h.length===3||h.length===4) h=h.split('').map(function(c){return c+c;}).join('');
+      return {r:parseInt(h.slice(0,2),16), g:parseInt(h.slice(2,4),16), b:parseInt(h.slice(4,6),16),
+              a:h.length===8?parseInt(h.slice(6,8),16)/255:1};
+    }
+    m=v.match(/^rgba?\(([^)]+)\)$/i);
+    if(m){
+      var parts=m[1].split(/[\s,\/]+/).filter(Boolean).map(parseFloat);
+      if(parts.length<3 || parts.some(isNaN)) return null;
+      return {r:parts[0], g:parts[1], b:parts[2], a:parts.length>3?parts[3]:1};
+    }
+    return null;
+  }
+  function buildPalette(){
+    if(palette) return palette;
+    var found=[], seen={};
+    function push(name,val){
+      val=(val||'').trim();
+      var c=parseColor(val);
+      if(!c) return;
+      if(c.a<0.5) return; /* translucent = borders/grids/overlays, never text colors */
+      if(seen[val]) return; seen[val]=1;
+      found.push([name,val,c]);
+    }
+    try{
+      for(var i=0;i<document.styleSheets.length;i++){
+        var rules; try{ rules=document.styleSheets[i].cssRules; }catch(e){ continue; }
+        for(var j=0;j<(rules?rules.length:0);j++){
+          var r=rules[j];
+          if(r.selectorText===':root' && r.style){
+            for(var k=0;k<r.style.length;k++){
+              var p=r.style[k];
+              if(p.indexOf('--')===0) push(p, r.style.getPropertyValue(p));
+            }
+          }
+        }
+      }
+    }catch(e){}
+    var dots=found.slice(0,8).map(function(c){ return [c[0],c[1]]; });
+    dots.push(['לבן','#ffffff'],['שחור','#111111']);
+    var bs=getComputedStyle(document.body);
+    if(bs.color) dots.push(['טקסט',bs.color]);
+    palette=dots;
+    /* gradient = saturated, mid-luminance brand accents (skip backgrounds/text tones) */
+    var brand=found.filter(function(c){
+      var col=c[2], chroma=Math.max(col.r,col.g,col.b)-Math.min(col.r,col.g,col.b);
+      var lum=(col.r*0.299+col.g*0.587+col.b*0.114)/255;
+      return chroma>40 && lum>0.12 && lum<0.88;
+    }).slice(0,3).map(function(c){return c[1];});
+    GRAD = brand.length>=2 ? 'linear-gradient(120deg,'+brand.join(',')+')'
+                           : 'linear-gradient(135deg,#71b9c3,#549cbc,#2d70aa,#6556d0,#9c4ed7)';
+    return palette;
+  }
+  function isClipped(el){
+    var cs=getComputedStyle(el);
+    return (cs.webkitBackgroundClip==='text' || cs.backgroundClip==='text');
+  }
+  function applyColor(c){
+    var ae=document.activeElement, sel=window.getSelection();
+    if(ae && ae.isContentEditable && sel && !sel.isCollapsed){
+      if(isClipped(ae) || (sel.anchorNode && sel.anchorNode.parentElement && isClipped(sel.anchorNode.parentElement))){
+        var t=sel.toString().replace(/&/g,'&amp;').replace(/</g,'&lt;');
+        document.execCommand('insertHTML',false,
+          '<span style="background:none;-webkit-background-clip:initial;background-clip:initial;-webkit-text-fill-color:'+c+';color:'+c+'">'+t+'</span>');
+      } else {
+        document.execCommand('styleWithCSS',false,true);
+        document.execCommand('foreColor',false,c);
+      }
+      return;
+    }
+    if(!selected){ toast('בחר אלמנט או סמן מילה'); return; }
+    var props={color:c};
+    if(isClipped(selected)){
+      props.background='none';
+      props['-webkit-background-clip']='initial'; props['background-clip']='initial';
+      props['-webkit-text-fill-color']=c;
+    }
+    doOp({t:'css', sel:stableSel(selected), scope:'all', props:props});
+  }
+  function applyGradient(){
+    buildPalette();
+    var ae=document.activeElement, sel=window.getSelection();
+    if(ae && ae.isContentEditable && sel && !sel.isCollapsed){
+      var t=sel.toString().replace(/&/g,'&amp;').replace(/</g,'&lt;');
+      document.execCommand('insertHTML',false,
+        '<span style="background:'+GRAD+';-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">'+t+'</span>');
+      return;
+    }
+    if(!selected){ toast('בחר אלמנט או סמן מילה'); return; }
+    doOp({t:'css', sel:stableSel(selected), scope:'all', props:{
+      background:GRAD, '-webkit-background-clip':'text', 'background-clip':'text',
+      '-webkit-text-fill-color':'transparent', color:'transparent'
+    }});
+  }
+  var lastFont={el:null,t:0};
+  function fontDelta(d){
+    /* while editing text, resize the element being edited, not the (null) selection */
+    var tgt=selected || (editState && editState.el);
+    if(!tgt){ toast('בחר טקסט קודם'); return; }
+    if(lockedEl(tgt) && !(tgt.closest && tgt.closest('[data-target],[data-count]'))){ toast('🔒 טקסט שמנוהל בקוד'); return; }
+    var ns=Math.max(10, Math.round((parseFloat(getComputedStyle(tgt).fontSize)||18)+d));
+    var sel=stableSel(tgt), now=Date.now();
+    var merge = lastFont.el===tgt && (now-lastFont.t)<1200 && ops.length &&
+      ops[ops.length-1].t==='css' && ops[ops.length-1].sel===sel &&
+      ops[ops.length-1].scope==='desktop' && ops[ops.length-1].props['font-size']!==undefined;
+    lastFont={el:tgt,t:now};
+    if(merge){
+      selfWrite(function(){ edRules[sel+'|desktop']=edRules[sel+'|desktop']||{}; edRules[sel+'|desktop']['font-size']=ns+'px'; ops[ops.length-1].props['font-size']=ns+'px'; renderRules(); });
+      schedulePersist();
+    } else {
+      doOp({t:'css', sel:sel, scope:'desktop', props:{'font-size':ns+'px'}});
+    }
+    toast('גודל טקסט: '+ns+'px'+(window.innerWidth<769?' (חל על מסך מחשב)':''));
+  }
+  function applyBold(){
+    var ae=document.activeElement, sel=window.getSelection();
+    if(ae && ae.isContentEditable && sel && !sel.isCollapsed){
+      document.execCommand('styleWithCSS',false,true);
+      document.execCommand('bold',false,null);
+      return;
+    }
+    if(!selected){ toast('סמן מילה או בחר טקסט'); return; }
+    var key=stableSel(selected);
+    var cur=cssGet(key,'all','font-weight');
+    doOp({t:'css', sel:key, scope:'all', props:{'font-weight': (cur && cur!=='400'&&cur!=='normal')?null:'800'}});
+    toast('הדגשה');
+  }
+  function cycleOpacity(){
+    if(!selected){ toast('בחר אלמנט קודם'); return; }
+    var sel=stableSel(selected);
+    var cur=parseFloat(cssGet(sel,'all','opacity')||getComputedStyle(selected).opacity||'1');
+    var next= cur>0.85?0.75 : cur>0.6?0.5 : cur>0.35?0.25 : 1;
+    doOp({t:'css', sel:sel, scope:'all', props:{opacity: next===1?null:String(next)}});
+    toast('שקיפות: '+Math.round(next*100)+'%');
+  }
+
+  /* ---------- links ---------- */
+  function editLink(){
+    if(!selected){ toast('בחר כפתור או קישור'); return; }
+    var a=matches(selected,'a')?selected:(selected.closest('a')||selected.querySelector('a'));
+    if(!a){ toast('אין כאן קישור'); return; }
+    var cur=a.getAttribute('href')||'';
+    var nv=prompt('כתובת הקישור (href):', cur);
+    if(nv===null || nv===cur) return;
+    doOp({t:'attr', sel:cssPath(a), name:'href', val:nv});
+    toast('הקישור עודכן ✓');
+  }
+
+  /* ---------- images: replace + insert (flow blocks) ---------- */
+  function downscale(file, cb){
+    var rd=new FileReader();
+    rd.onload=function(){
+      var im=new Image();
+      im.onload=function(){
+        var MAX=1600, w=im.naturalWidth, h=im.naturalHeight;
+        if(w>MAX){ h=Math.round(h*MAX/w); w=MAX; }
+        var cv=document.createElement('canvas'); cv.width=w; cv.height=h;
+        cv.getContext('2d').drawImage(im,0,0,w,h);
+        var isPng=/png$/i.test(file.type);
+        cb(isPng ? cv.toDataURL('image/png') : cv.toDataURL('image/jpeg',0.85));
+      };
+      im.src=rd.result;
+    };
+    rd.readAsDataURL(file);
+  }
+  function selectedImg(){
+    if(!selected) return null;
+    if(matches(selected,'img')) return selected;
+    var imgs=selected.querySelectorAll?selected.querySelectorAll('img'):[];
+    return imgs.length===1 ? imgs[0] : null;
+  }
+  function replaceImage(){
+    var img=selectedImg();
+    if(!img){ toast('בחר תמונה אחת קודם'); return; }
+    var inp=document.createElement('input'); inp.type='file'; inp.accept='image/*';
+    inp.onchange=function(){
+      if(!inp.files[0]) return;
+      downscale(inp.files[0],function(url){
+        var sel=cssPath(img);
+        doOp({t:'attr', sel:sel, name:'src', val:url});
+        if(img.hasAttribute('srcset')) doOp({t:'attr', sel:sel, name:'srcset', val:null});
+        if(img.hasAttribute('sizes')) doOp({t:'attr', sel:sel, name:'sizes', val:null});
+        toast('התמונה הוחלפה ✓');
+      });
+    };
+    inp.click();
+  }
+  function insertRef(){
+    if(selected) return {ref:cssPath(selected), where:'after'};
+    var secs=getSections();
+    var mid=window.scrollY+window.innerHeight/2;
+    for(var i=0;i<secs.length;i++){
+      var r=secs[i].getBoundingClientRect(), top=r.top+window.scrollY;
+      if(mid>=top && mid<=top+r.height) return {ref:cssPath(secs[i]), where:'append'};
+    }
+    return secs.length ? {ref:cssPath(secs[0]), where:'append'} : {ref:'body', where:'append'};
+  }
+  function insertImageData(url){
+    var at=insertRef();
+    var id=String(++insCounter)+'-'+Date.now()%100000;
+    /* inline the fit rules so the exported page never depends on stripped editor.css
+       (pages without a global img reset would otherwise overflow on mobile) */
+    var html='<div class="pe-img-block" style="width:min(560px,92%);margin:18px auto">'
+      +'<img src="'+url+'" alt="" style="max-width:100%;height:auto;display:block;margin:0 auto;border-radius:12px"></div>';
+    if(doOp({t:'ins', ref:at.ref, where:at.where, html:html, id:id})){
+      var node=resolve('[data-pe-i="'+id+'"]');
+      if(node){ select(node); node.scrollIntoView({block:'center'}); }
+      toast('תמונה נוספה - גררו פינה לשינוי גודל');
+    }
+  }
+  function addImage(){
+    var inp=document.createElement('input'); inp.type='file'; inp.accept='image/*';
+    inp.onchange=function(){ if(inp.files[0]) downscale(inp.files[0], insertImageData); };
+    inp.click();
+  }
+  function addText(){
+    var at=insertRef();
+    var id=String(++insCounter)+'-'+Date.now()%100000;
+    var html='<p class="pe-text" dir="auto">טקסט חדש - לחצו פעמיים לעריכה</p>';
+    if(doOp({t:'ins', ref:at.ref, where:at.where, html:html, id:id})){
+      var node=resolve('[data-pe-i="'+id+'"]');
+      if(node){ select(node); node.scrollIntoView({block:'center'}); }
+      toast('נוסף טקסט - לחיצה כפולה לעריכה');
+    }
+  }
+
+  /* ---------- copy / paste ---------- */
+  function copySel(){
+    if(!selected) return false;
+    clipInternal={html:cleanClone(selected).outerHTML};
+    toast('הועתק ✓ (Cmd+V להדבקה)');
+    return true;
+  }
+  function pasteInternal(){
+    if(!clipInternal) return;
+    var at=insertRef();
+    var id=String(++insCounter)+'-'+Date.now()%100000;
+    if(doOp({t:'ins', ref:at.ref, where:at.where, html:clipInternal.html, id:id})){
+      var node=resolve('[data-pe-i="'+id+'"]');
+      if(node){ select(node); node.scrollIntoView({block:'nearest'}); }
+      toast('הודבק ✓');
+    }
+  }
+  function onPasteDoc(e){
+    if(!edOn) return;
+    var ae=document.activeElement;
+    if(ae && ae.isContentEditable) return; /* handled per-element */
+    var items=(e.clipboardData&&e.clipboardData.items)||[];
+    for(var i=0;i<items.length;i++){
+      if(items[i].type && items[i].type.indexOf('image')===0){
+        var f=items[i].getAsFile();
+        if(f){ e.preventDefault(); downscale(f, insertImageData); return; }
+      }
+    }
+    if(clipInternal){ e.preventDefault(); pasteInternal(); }
+  }
+
+  /* ---------- disclosure helpers (FAQ / details) ---------- */
+  var openedDetails=[];
+  function openDisclosures(){
+    document.querySelectorAll('details').forEach(function(d){
+      if(!d.open){ selfWrite(function(){ d.open=true; }); openedDetails.push(d); }
+    });
+    document.querySelectorAll('.faq-item').forEach(function(f){
+      if(!f.classList.contains('open')){ selfWrite(function(){ f.classList.add('open','pe-opened'); }); }
+    });
+  }
+  function closeDisclosures(){
+    openedDetails.forEach(function(d){ selfWrite(function(){ d.open=false; }); });
+    openedDetails=[];
+    document.querySelectorAll('.faq-item.pe-opened').forEach(function(f){
+      selfWrite(function(){ f.classList.remove('open','pe-opened'); });
+    });
+  }
+
+  /* ---------- mobile preview ---------- */
+  function mobilePreview(){
+    persist();
+    var sep=location.search?'&':'?';
+    var w=window.open(location.href+sep+'edpreview=1','pe-preview','width=400,height=780');
+    if(!w) toast('הדפדפן חסם את החלון - אשרו חלונות קופצים');
+  }
+  function isPreview(){ return location.search.indexOf('edpreview')>-1; }
+
+  /* ---------- toolbar UI ---------- */
+  var tb, ctx, toastEl, toastTimer, fab, hint;
+  function mkBtn(label,fn,cls){
+    var b=document.createElement('button'); b.type='button';
+    b.className=(cls==='primary'||cls==='danger')?('pe-btn '+cls):'pe-btn';
+    b.textContent=label;
+    b.addEventListener('mousedown',function(e){ e.preventDefault(); e.stopPropagation(); });
+    /* mousedown preventDefault keeps the contenteditable focused, so font/color/bold
+       buttons operate on the live selection WHILE editing. When NOT editing, flush any
+       stray edit first. (save/export flush themselves regardless.) */
+    b.addEventListener('click',function(e){ e.stopPropagation(); if(!editState) flushTextEdit(); fn(); });
+    return b;
+  }
+  function mkSep(){ var s=document.createElement('span'); s.className='pe-sep'; return s; }
+  function mkDot(name,color){
+    var d=document.createElement('button'); d.type='button'; d.className='pe-dot'; d.title=name; d.style.background=color;
+    d.addEventListener('mousedown',function(e){ e.preventDefault(); e.stopPropagation(); });
+    d.addEventListener('click',function(e){ e.stopPropagation(); applyColor(color); });
+    return d;
+  }
+  function toast(msg){
+    if(!toastEl) return;
+    toastEl.textContent=msg||''; toastEl.classList.toggle('on',!!msg);
+    clearTimeout(toastTimer);
+    if(msg) toastTimer=setTimeout(function(){ toastEl.classList.remove('on'); },2800);
+  }
+  function toastAction(msg,btnLabel,fn){
+    if(!toastEl) return;
+    toastEl.textContent=msg;
+    var b=document.createElement('button'); b.textContent=btnLabel;
+    b.addEventListener('click',function(e){ e.stopPropagation(); fn(); });
+    toastEl.appendChild(b);
+    toastEl.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(function(){ toastEl.classList.remove('on'); },6000);
+  }
+  function buildColors(){
+    var lbl=document.createElement('span'); lbl.className='pe-ctx-lbl'; lbl.textContent='צבע:';
+    ctx.appendChild(lbl);
+    var g=document.createElement('button'); g.type='button'; g.className='pe-dot grad-dot'; g.title='גרדיאנט';
+    g.addEventListener('mousedown',function(e){ e.preventDefault(); e.stopPropagation(); });
+    g.addEventListener('click',function(e){ e.stopPropagation(); applyGradient(); });
+    ctx.appendChild(g);
+    buildPalette().forEach(function(c){ ctx.appendChild(mkDot(c[0],c[1])); });
+    if(editState){
+      var tip=document.createElement('span'); tip.className='pe-ctx-lbl'; tip.textContent='(סמנו מילה כדי לצבוע רק אותה)';
+      ctx.appendChild(tip);
+    }
+  }
+  function fontBtns(){
+    /* font-size edits are desktop-scoped; hide on phone so they never look dead */
+    if(window.innerWidth<769) return;
+    ctx.appendChild(mkBtn('A+',function(){fontDelta(2);}));
+    ctx.appendChild(mkBtn('A−',function(){fontDelta(-2);}));
+  }
+  function refreshTb(){
+    if(!ctx) return;
+    ctx.innerHTML='';
+    var show=false;
+    if(editState){
+      buildColors();
+      ctx.appendChild(mkSep());
+      ctx.appendChild(mkBtn('𝐁 הדגש',applyBold));
+      fontBtns(); /* keep sizing available WHILE editing text (P3) */
+      show=true;
+    }
+    else if(selected){
+      if(isSection(selected)){
+        var l=document.createElement('span'); l.className='pe-ctx-lbl'; l.textContent='סקשן:'; ctx.appendChild(l);
+        ctx.appendChild(mkBtn('⬆ הזז למעלה',function(){moveSection(-1);}));
+        ctx.appendChild(mkBtn('⬇ הזז למטה',function(){moveSection(1);}));
+        ctx.appendChild(mkBtn('⧉ שכפל סקשן',duplicateSel));
+        ctx.appendChild(mkBtn('👻 הסתר',hideSel));
+        ctx.appendChild(mkSep());
+        ctx.appendChild(mkBtn('ריווח +',function(){spacingDelta(12);}));
+        ctx.appendChild(mkBtn('ריווח −',function(){spacingDelta(-12);}));
+        if(selectedImg()) ctx.appendChild(mkBtn('🔁 החלף תמונה',replaceImage));
+        show=true;
+      } else if(matches(selected,'img,.pe-img-block') || selectedImg()){
+        ctx.appendChild(mkBtn('🔁 החלף תמונה',replaceImage));
+        ctx.appendChild(mkBtn('שקיפות 👻',cycleOpacity));
+        ctx.appendChild(mkSep());
+        ctx.appendChild(mkBtn('⧉ שכפל',duplicateSel));
+        if(hasMove(selected)) ctx.appendChild(mkBtn('↺ אפס מיקום',resetPos));
+        ctx.appendChild(mkBtn('↔ מרכז',centerSel));
+        ctx.appendChild(mkBtn('👻 הסתר',hideSel));
+        show=true;
+      } else {
+        var locked = lockedEl(selected) && !(selected.closest && selected.closest('[data-target],[data-count]'));
+        buildColors(); show=true;
+        ctx.appendChild(mkSep());
+        if(locked){
+          var lc=document.createElement('span'); lc.className='pe-ctx-lbl'; lc.textContent='🔒 מנוהל בקוד';
+          ctx.appendChild(lc);
+        } else {
+          ctx.appendChild(mkBtn('𝐁 הדגש',applyBold));
+          fontBtns();
+        }
+        var a=matches(selected,'a')?selected:(selected.closest('a')||selected.querySelector('a'));
+        if(a) ctx.appendChild(mkBtn('🔗 קישור',editLink));
+        ctx.appendChild(mkSep());
+        ctx.appendChild(mkBtn('⧉ שכפל',duplicateSel));
+        ctx.appendChild(mkBtn('👻 הסתר',hideSel));
+        if(hasMove(selected)) ctx.appendChild(mkBtn('↺ אפס מיקום',resetPos));
+        ctx.appendChild(mkBtn('↔ מרכז',centerSel));
+        ctx.appendChild(mkBtn('ריווח +',function(){spacingDelta(8);}));
+        ctx.appendChild(mkBtn('ריווח −',function(){spacingDelta(-8);}));
+      }
+    }
+    ctx.style.display=show?'flex':'none';
+    updateHint();
+  }
+  function updateHint(){
+    if(!hint) return;
+    if(editState) hint.innerHTML='הקלידו לעריכה · Esc לביטול · סמנו מילה ואז 𝐁/צבע כדי לעצב רק אותה · לחיצה בחוץ = שמירה';
+    else if(selected && (matches(selected,'img,.pe-img-block')||selectedImg())) hint.innerHTML='גררו את הפינה הסגולה לשינוי גודל · גררו את התמונה למקום (גם בין מקטעים) · 🔁 להחלפה';
+    else if(selected && isSection(selected)) hint.innerHTML='⬆⬇ לסידור מקטעים · ⧉ לשכפול · 👻 להסתרה · ריווח לשינוי גובה';
+    else hint.innerHTML='לחיצה = בחירה · לחיצה נוספת = כניסה פנימה · גרירה = הזזה · לחיצה כפולה = עריכת טקסט · חצים = הזזה עדינה · Cmd+Z = ביטול · 💾 נשמר אוטומטית (גם אחרי רענון)';
+  }
+  function buildUI(){
+    fab=document.createElement('button'); fab.id='pe-fab'; fab.type='button'; fab.textContent='✏️ עריכה';
+    fab.addEventListener('click',function(){ setEdit(true); });
+    document.body.appendChild(fab);
+
+    tb=document.createElement('div'); tb.id='pe-toolbar';
+    var row=document.createElement('div'); row.id='pe-row';
+    row.appendChild(mkBtn('🔤 טקסט',addText));
+    row.appendChild(mkBtn('🖼️ תמונה',addImage));
+    row.appendChild(mkSep());
+    row.appendChild(mkBtn('⤴ מסגרת',selectParent));
+    row.appendChild(mkBtn('🗑️ מחק',deleteSel,'danger'));
+    row.appendChild(mkBtn('👻 מוסתרים',unhideMenu));
+    row.appendChild(mkSep());
+    row.appendChild(mkBtn('↶ ביטול',undo));
+    row.appendChild(mkBtn('↷ חזרה',redo));
+    row.appendChild(mkSep());
+    row.appendChild(mkBtn('📱 מובייל',mobilePreview));
+    row.appendChild(mkBtn('🔄 איפוס',resetAll,'danger'));
+    row.appendChild(mkBtn('💾 שמור קובץ',saveEditable,'primary'));
+    row.appendChild(mkBtn('🚀 קובץ לאתר',exportClean));
+    row.appendChild(mkBtn('✖ סגור',function(){ setEdit(false); }));
+    tb.appendChild(row);
+    ctx=document.createElement('div'); ctx.id='pe-ctx'; tb.appendChild(ctx);
+    document.body.appendChild(tb);
+
+    hint=document.createElement('div'); hint.id='pe-hint';
+    hint.innerHTML='לחיצה = בחירה · גרירה = הזזה (Alt = בלי הצמדה) · לחיצה כפולה = עריכת טקסט · חצים = הזזה עדינה (Shift=10) · Cmd+D = שכפול · Cmd+Z = ביטול · Cmd+S = שמירה';
+    document.body.appendChild(hint);
+
+    toastEl=document.createElement('div'); toastEl.id='pe-toast'; document.body.appendChild(toastEl);
+    guideV=document.createElement('div'); guideV.id='pe-guide-v'; document.body.appendChild(guideV);
+  }
+
+  /* ---------- event shield: while editing, the editor owns ALL interaction.
+     window-capture handlers run before any page listener; stopPropagation
+     silences tilt/glow/modal-hijack/accordion handlers without touching them. */
+  function chrome(e){ return isPe(e.target); }
+  function shieldDown(e){
+    if(!edOn || chrome(e)) return;
+    e.stopPropagation();
+    onDown(e);
+  }
+  function shieldMove(e){
+    if(!edOn) return;
+    if(drag){ e.stopPropagation(); e.preventDefault(); onMove(e); return; }
+    if(!chrome(e)) e.stopPropagation();
+  }
+  function shieldUp(e){
+    if(!edOn) return;
+    if(drag){ e.stopPropagation(); onUp(e); }
+  }
+  function shieldClick(e){
+    if(!edOn || chrome(e)) return;
+    e.preventDefault(); e.stopPropagation();
+  }
+  function shieldDbl(e){
+    if(!edOn || chrome(e)) return;
+    e.stopPropagation();
+    onDbl(e);
+  }
+  function shieldSubmit(e){
+    if(!edOn) return;
+    e.preventDefault(); e.stopPropagation();
+    toast('טפסים כבויים במצב עריכה');
+  }
+  function shieldOver(e){
+    if(!edOn || chrome(e)) return;
+    e.stopPropagation();
+    var hv=document.querySelectorAll('.pe-hover,.pe-locked-hover');
+    for(var i=0;i<hv.length;i++){ hv[i].classList.remove('pe-hover'); hv[i].classList.remove('pe-locked-hover'); dropClassResidue(hv[i]); }
+    if(editState) return;
+    var lock=lockedEl(e.target);
+    if(lock){ if(!lock.closest('[data-target],[data-count]')){ lock.classList.add('pe-locked-hover'); return; } }
+    var el=eligible(e.target);
+    if(el && el!==selected) el.classList.add('pe-hover');
+  }
+  function bindShield(){
+    window.addEventListener('mousedown',shieldDown,true);
+    window.addEventListener('mousemove',shieldMove,true);
+    window.addEventListener('mouseup',shieldUp,true);
+    window.addEventListener('click',shieldClick,true);
+    window.addEventListener('dblclick',shieldDbl,true);
+    window.addEventListener('submit',shieldSubmit,true);
+    window.addEventListener('mouseover',shieldOver,true);
+    document.addEventListener('paste',onPasteDoc,true);
+    window.addEventListener('dragover',function(e){ if(edOn){ e.preventDefault(); e.stopPropagation(); } },true);
+    window.addEventListener('drop',function(e){
+      if(!edOn) return;
+      e.preventDefault(); e.stopPropagation();
+      var fs=e.dataTransfer && e.dataTransfer.files;
+      if(fs && fs.length && /^image\//.test(fs[0].type)) downscale(fs[0], insertImageData);
+    },true);
+  }
+
+  /* ---------- keyboard ---------- */
+  function onKey(e){
+    if(!edOn) return;
+    var editing=document.activeElement && document.activeElement.isContentEditable;
+    var meta=e.metaKey||e.ctrlKey;
+    if(e.key==='ArrowLeft'||e.key==='ArrowRight'||e.key==='ArrowUp'||e.key==='ArrowDown'){
+      if(!editing && selected){
+        e.preventDefault(); e.stopImmediatePropagation();
+        var st=e.shiftKey?10:1;
+        nudge(e.key==='ArrowLeft'?-st:e.key==='ArrowRight'?st:0, e.key==='ArrowUp'?-st:e.key==='ArrowDown'?st:0);
+      }
+      return;
+    }
+    if(meta && (e.key==='z'||e.key==='Z')){
+      if(editing) return; /* native undo inside text edit */
+      e.preventDefault(); e.stopImmediatePropagation();
+      if(e.shiftKey) redo(); else undo();
+      return;
+    }
+    if(meta && (e.key==='s'||e.key==='S')){ e.preventDefault(); e.stopImmediatePropagation(); saveEditable(); return; }
+    if(meta && (e.key==='c'||e.key==='C') && !editing && selected){ copySel(); return; }
+    if(meta && (e.key==='v'||e.key==='V')) return; /* paste event handles it */
+    if(meta && (e.key==='d'||e.key==='D') && !editing && selected){ e.preventDefault(); e.stopImmediatePropagation(); duplicateSel(); return; }
+    if((e.key==='Delete'||e.key==='Backspace') && !editing){
+      if(selected){ e.preventDefault(); e.stopImmediatePropagation(); deleteSel(); }
+      return;
+    }
+    if(e.key==='Escape'){
+      if(editing){
+        if(editState && editState.el){ editState.cancelled=true; selfWrite(function(){ editState.el.innerHTML=editState.orig; }); editState.el.blur(); }
+        else document.activeElement.blur();
+      } else {
+        var hp=document.getElementById('pe-hidden-panel');
+        if(hp){ hp.remove(); return; }
+        deselect();
+      }
+    }
+  }
+
+  /* ---------- edit mode toggle ---------- */
+  function setEdit(on){
+    if(!on) flushTextEdit();
+    edOn=on;
+    document.body.classList.toggle('pe-on',on);
+    /* scroll-behavior lives on the ROOT scroller (html), not body */
+    document.documentElement.classList.toggle('pe-on',on);
+    tb.classList.toggle('on',on);
+    fab.style.display=on?'none':'block';
+    hideGuide();
+    if(on){ openDisclosures(); buildPalette(); tagLocked(true); toast('מצב עריכה פעיל · העריכות נשמרות אוטומטית'); }
+    else { deselect(); closeDisclosures(); tagLocked(false); var hp=document.getElementById('pe-hidden-panel'); if(hp) hp.remove(); toast(''); }
+  }
+  /* mark script-owned content persistently while editing so it never reads as a
+     dead click - the user SEES the 🔒 before clicking */
+  function tagLocked(on){
+    if(!on){ selfWrite(function(){ var n=document.querySelectorAll('.pe-locked'); for(var i=0;i<n.length;i++){ n[i].classList.remove('pe-locked'); dropClassResidue(n[i]); } }); return; }
+    if(!CFG.lock) return;
+    selfWrite(function(){
+      var n=document.querySelectorAll(CFG.lock);
+      for(var i=0;i<n.length;i++){ if(isPe(n[i])) continue; if(n[i].closest('[data-target],[data-count]')) continue; n[i].classList.add('pe-locked'); }
+    });
+  }
+
+  /* ---------- baseline + boot ---------- */
+  function applyBaseline(){
+    if(!baseOps.length) return;
+    baseOps.forEach(function(op){
+      var c={}; for(var k in op){ if(k!=='prev'&&k!=='prevIndex') c[k]=op[k]; }
+      applyOp(c);
+    });
+    /* async rewriters (typewriter/count-up) may clobber baseline text - re-assert
+       the EFFECTIVE state (baseline + session edits), never raw baseline, so the
+       sweep cannot revert an edit the user just made on top of a saved one */
+    [1500,4000,8000].forEach(function(ms){
+      setTimeout(function(){
+        var eff=compactOps(baseOps.concat(ops));
+        eff.forEach(function(op){
+          if(op.t==='html'){ var el=resolve(op.sel); if(el && !el.isContentEditable && el.innerHTML!==op.html) selfWrite(function(){ el.innerHTML=op.html; }); }
+          else if(op.t==='attr' && op.val!=null){ var el2=resolve(op.sel); if(el2 && el2.getAttribute(op.name)!==op.val) selfWrite(function(){ el2.setAttribute(op.name,op.val); }); }
+        });
+      },ms);
+    });
+  }
+
+  /* baseline (saved edits) always applies, so a deployed page that carried the
+     editor still shows the edits - only the editing UI is gated below */
+  applyBaseline();
+
+  if(isPreview()){
+    var data; try{ data=JSON.parse(localStorage.getItem(LS_OPS)||'null'); }catch(e){}
+    if(data && data.ops) data.ops.forEach(function(op){ applyOp(op); });
+    var ban=document.createElement('div'); ban.id='pe-preview-banner';
+    ban.textContent='📱 תצוגה מקדימה - כך הדף ייראה אחרי שמירה';
+    document.body.appendChild(ban);
+    return; /* no editor chrome in preview windows */
+  }
+
+  /* ---- SAFETY BACKSTOP: only mount the editor on a LOCAL working copy ----
+     On a real deployed domain the editor stays 100% dormant: no ✏️ button, no
+     listeners, nothing visible to visitors. So even if a page that still carries
+     the editor is accidentally deployed, the live site is unaffected. Local edit
+     happens on file:// (you open the file) / localhost / or an explicit ?edit. */
+  var host=location.hostname||'';
+  var LOCAL = location.protocol==='file:' ||
+    host===''||host==='localhost'||host==='127.0.0.1'||host==='0.0.0.0'||
+    /^(10\.|127\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(host) ||
+    /[?&]edit(=|&|$)/.test(location.search) ||
+    location.search.indexOf('edtest')>-1 || location.search.indexOf('edpreview')>-1;
+  if(!LOCAL) return; /* production: editor present but fully inert */
+
+  buildUI();
+  bindShield();
+  document.addEventListener('keydown',onKey,true);
+
+  /* test/QA hooks */
+  window.__pe={
+    setEdit:setEdit, ops:function(){return ops;}, baseOps:function(){return baseOps;},
+    exportClean:buildClean, exportEditable:buildEditable, applyOp:applyOp,
+    select:select, selected:function(){return selected;}, doOp:doOp,
+    cssPath:cssPath, sections:getSections, undo:undo, redo:redo, compact:exportOps
+  };
+
+  if(location.search.indexOf('edtest')>-1) setEdit(true);
+  setTimeout(checkRestore,400);
+})();
+
+
+</script>
+</body>
+</html>
